@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33f77d2e8205774ab504cf523d59aa4, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  ballPrefab: {fileID: 8692611859748260116, guid: 85d3609d8903de84298cbaf7b6e38364,
+    type: 3}
+  minBallSpawnerShootAngle: 10
+  maxBallSpawnerShootAngle: 30
+  ballSpawnerForceToShoot: 6
+  forceToMoveCannon: {x: 300, y: 0}
+  bulletDamage: 30
+  moveBuffer: 0.2
+  ballColorThresholds:
+  - 0.9
+  - 1
+  - 1.1
+  - 1.2
+  - 100
+  ballColors:
+  - {r: 0, g: 0.6666665, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.6666667, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  ballScales:
+  - 1
+  - 1.5
+  - 2
+  minBallShotAngle: 10
+  maxBallShotAngle: 60
+  ballForceToShoot: 3
+  baseLevelLife: 2000
+  baseLevelDuration: 30
+  baseLevelShots: 30
+  insideLevelDifficultyProgression: 0.1
+  amountOfBallsToMixSimultaneosly: 5
+  ballsMixCoef: 0.3
+  ballMixCycles: 2
+  amountOfWaitingsToMixSimultaneosly: 3
+  waitingMixCoef: 0.3
+  waitingMixCycles: 1
+  ballSizeProbabilities:
+  - 0.6
+  - 0.3
+  - 0.1
+  simulatedIterationesOfTrajectory: 200
+  mockBallPrefab: {fileID: 4283104745495204102, guid: 86dd5ed66806d534aa9c23740417764c,
+    type: 3}
