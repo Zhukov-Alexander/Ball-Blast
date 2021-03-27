@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SideBorder
+  - Boss
+  - Ball
+  - FirstUpgradeTabTag
+  - BackgroundCanvas
   layers:
   - Default
   - TransparentFX
@@ -13,18 +18,18 @@ TagManager:
   - UI
   - 
   - 
-  - Balls
-  - Border
+  - EnemyCollider
+  - Ground
   - Cannon
   - Bullet
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Coin
+  - CoinTrigger
+  - EnemyTrigger
+  - LeftWall
+  - RightWall
+  - CannonAura
+  - EnemyBullet
+  - Boss
   - 
   - 
   - 
@@ -38,9 +43,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3271098145
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemy
+    uniqueID: 2565515159
+    locked: 0
   - name: Cannon
     uniqueID: 1287440283
+    locked: 0
+  - name: Foreground
+    uniqueID: 860936069
+    locked: 0
+  - name: UI Foreground
+    uniqueID: 2408000367
     locked: 0

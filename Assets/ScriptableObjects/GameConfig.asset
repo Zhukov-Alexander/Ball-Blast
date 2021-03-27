@@ -12,47 +12,171 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33f77d2e8205774ab504cf523d59aa4, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 8692611859748260116, guid: 85d3609d8903de84298cbaf7b6e38364,
-    type: 3}
-  minBallSpawnerShootAngle: 10
-  maxBallSpawnerShootAngle: 30
-  ballSpawnerForceToShoot: 6
-  forceToMoveCannon: {x: 300, y: 0}
-  bulletDamage: 30
-  moveBuffer: 0.2
-  ballColorThresholds:
-  - 0.9
-  - 1
-  - 1.1
-  - 1.2
-  - 100
-  ballColors:
-  - {r: 0, g: 0.6666665, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.6666667, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  ballScales:
-  - 1
-  - 1.5
-  - 2
-  minBallShotAngle: 10
-  maxBallShotAngle: 60
-  ballForceToShoot: 3
-  baseLevelLife: 2000
-  baseLevelDuration: 30
-  baseLevelShots: 30
-  insideLevelDifficultyProgression: 0.1
-  amountOfBallsToMixSimultaneosly: 5
-  ballsMixCoef: 0.3
+  epsilon: 0.0001
+  ballPrefabs:
+  - {fileID: 2993049355571871454, guid: e175e9f404e03f94eb075ad30604f322, type: 3}
+  - {fileID: 6065390773938060371, guid: 4fddd9ade0e325543a0a2cc9fc844895, type: 3}
+  - {fileID: 1333875912147071329, guid: 717d9a32832fa6c4c81b98994eeb83f6, type: 3}
+  ballSpawnerShootAngles: {x: 15, y: 25}
+  ballSpawnerForceToShoot: {x: 8, y: 10}
+  torqueAmountMinMax: {x: 3, y: 5}
+  ballColorGradient:
+    serializedVersion: 2
+    key0: {r: 0.16, g: 0.5866669, b: 0.8, a: 1}
+    key1: {r: 0.16, g: 0.8, b: 0.317612, a: 1}
+    key2: {r: 0.8, g: 0.7847701, b: 0.16078429, a: 0}
+    key3: {r: 0.8, g: 0.56195205, b: 0.16, a: 0}
+    key4: {r: 0.8, g: 0.16, b: 0.17788176, a: 0}
+    key5: {r: 0.8, g: 0.16, b: 0.17788176, a: 0}
+    key6: {r: 0.8, g: 0.16, b: 0.17788176, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 22359
+    ctime1: 33539
+    ctime2: 45104
+    ctime3: 55127
+    ctime4: 65535
+    ctime5: 49344
+    ctime6: 49344
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  ballTypeProbabilities:
+  - 0.6
+  - 0.3
+  - 0.1
+  ballShotAngles: {x: 5, y: 20}
+  ballForceToShoot: {x: 4, y: 7}
+  minBallScale: 0.3
+  maxBallScale: 1
+  timeToDownScaleEnemy: 0.3
+  ScaleEnemyAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.8221824
+      outSlope: -0.8221824
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.018656718
+    - serializedVersion: 3
+      time: 1.00177
+      value: 1
+      inSlope: -0.43946216
+      outSlope: -0.43946216
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.025373133
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bulletDamage: 100
+  cannonMoveForce: 200
+  bonusProbability: 0.05
+  bulletsPerSecond: 2
+  bulletsSpeed: 3
+  health: 1000
+  armor: 50
+  cannonInstantiatePosition: {x: 0, y: -2, z: 0}
+  cannonPrefabs:
+  - {fileID: 8427909442948576857, guid: 2c2325b097c1df44eb154a1498e872ca, type: 3}
+  - {fileID: 8366319423802451689, guid: 894bc1d8129278f45b0538e57ae1e5a9, type: 3}
+  - {fileID: 7136426685626898457, guid: 1dd68a948db5b8140ac4677552803ae8, type: 3}
+  - {fileID: 1102568919731610115, guid: 7dc7114292cef8945ac080d80716842c, type: 3}
+  - {fileID: 2756222464850028479, guid: 095170e22e8bf12438bfafa8a407b796, type: 3}
+  - {fileID: 3034537206020680653, guid: 246cff5344501354b9a5bf283db4f198, type: 3}
+  - {fileID: 2376106550169519188, guid: ea3e496ef73ee2946bf1d3d5bc5aec7f, type: 3}
+  - {fileID: 5271747738458574299, guid: b3b99d9ac426d374d902f674ac0f34f5, type: 3}
+  - {fileID: 2289035327902842667, guid: bf232f2f67faba9429870c1bb8bdc73d, type: 3}
+  - {fileID: 1012485990059363169, guid: f7b2a1dc8befe30418dea84078c02709, type: 3}
+  moveBuffer: 0.1
+  cannonSliderDurationCoef: 0.8
+  levelLifePerSec: 100
+  levelDuration: 40
+  levelShotsPerSec: 0.8
+  insideCampainDifficultyProgressionPerSec: 0.005
+  amountOfBallsToMixSimultaneosly: 10
+  ballsMixCoef: 0.4
   ballMixCycles: 2
   amountOfWaitingsToMixSimultaneosly: 3
   waitingMixCoef: 0.3
   waitingMixCycles: 1
-  ballSizeProbabilities:
-  - 0.6
-  - 0.3
-  - 0.1
+  maxBallPositionY: 2.5
+  minBallPositionY: -0.5
+  ballChangePosForceY: 1.7
+  maxBallAngularVelocity: 200
+  baseBallAngularDrag: 1
+  ballAngularDragCoef: 0.2
   simulatedIterationesOfTrajectory: 200
-  mockBallPrefab: {fileID: 4283104745495204102, guid: 86dd5ed66806d534aa9c23740417764c,
+  mockBallPrefab: {fileID: 8692611859748260116, guid: 85d3609d8903de84298cbaf7b6e38364,
     type: 3}
+  coinProbabilities:
+  - 4
+  - 2
+  - 1
+  coinWeights: 1e0000005a0000000e010000
+  randomCoinsMultiplyer: {x: 0.7, y: 1.4}
+  amountOfSpawnedDiamonds: 5
+  diamondPrefab: {fileID: 5640022662767708086, guid: ba9b7ef85c2cc21428a57a5e11180bc3,
+    type: 3}
+  diamondColor: {r: 0.22352943, g: 0.67058825, b: 0.67058825, a: 1}
+  coinPrefabs:
+  - {fileID: 5885347240358113740, guid: e67676bb241cc9440a01f6f6d3ac4dd5, type: 3}
+  - {fileID: 8458910117976800644, guid: 8b92cf01d401f9e4f8ef9a8e8204bbd9, type: 3}
+  - {fileID: 5640022662767708086, guid: bfe346902ea813e43851f7b859d85c67, type: 3}
+  coinColor: {r: 1, g: 1, b: 1, a: 1}
+  activeHeaderColor: {r: 0.6, g: 0.57254905, b: 0.37647063, a: 1}
+  passiveHeaderColor: {r: 0.32156864, g: 0.4039216, b: 0.18039216, a: 1}
+  activeUpgradeColor: {r: 0.03529412, g: 0.5176471, b: 0.25490198, a: 1}
+  passiveUpgradeColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  firstUpgradeTabTag: FirstUpgradeTabTag
+  bossPrefabs:
+  - {fileID: 5344757227235174120, guid: f56c48edb4c26c548a964066a591a966, type: 3}
+  - {fileID: 4153308833316549576, guid: e9b7eb0d051258945ae422238b31e414, type: 3}
+  - {fileID: 5382592500797005194, guid: 55610472d1d66ba42bb0a70f226a1777, type: 3}
+  - {fileID: 3153554860537331196, guid: 5e931a528eb36254f9a50ba859245542, type: 3}
+  - {fileID: 6196616463762802282, guid: 481db11393e0c11419b40e0b950171b1, type: 3}
+  - {fileID: 4071551292292052821, guid: 0817c8b39b2f6234f85d33d9c9df9fab, type: 3}
+  - {fileID: 2691571488113072775, guid: 16a0a2ceabf289441b3da2e833033232, type: 3}
+  - {fileID: 4328054180044069710, guid: 53b75ca1d3934214dadbca2cc59b2cfe, type: 3}
+  - {fileID: 4333065037215709460, guid: 5f38400664435a04086ab69237196eb5, type: 3}
+  - {fileID: 4069845867815481853, guid: 4084539b2cb277a41b5fcf24b14784b6, type: 3}
+  bossPrefabPosition: {x: 0, y: 6, z: 0}
+  bossLives: 3500
+  bossDamage: 120
+  bossArmor: 20
+  bossSpeed: 2
+  bossfightToCampainModMoneyMultiplyer: 5
+  baseCannonCost: 10
+  snapMoveCoef: 10
+  minDistance: 10
+  minScrollVelocity: 1000
+  cannonMoveToScrollItemTime: 1
+  constSnapMove: 10
+  backgrounds:
+  - {fileID: 1706624184277238170, guid: 696122448bca9204693b72a92312de42, type: 3}
+  - {fileID: 956480937305092104, guid: cb30b8530ec7dc14cb5507fa7d6f764c, type: 3}
+  - {fileID: 9216190710436252528, guid: 1f5b735d600c08e468e24a00ead78d19, type: 3}
+  - {fileID: 4849673444627084267, guid: 1ac6232214d543349a9cd0e9cfc46bae, type: 3}
+  - {fileID: 5326788462001283233, guid: f4c6c5219d3af7444a56227b870ee574, type: 3}
+  - {fileID: 5320636986488398322, guid: 1f18f7fb0d2f33d43a29ee55058776ab, type: 3}
+  - {fileID: 7817876639763018030, guid: 515ebba03fd1e8c43a8451e73fbabc51, type: 3}
+  - {fileID: 6136293381981821430, guid: a16de9f0403c56d4fafd9a94aa57c715, type: 3}
+  - {fileID: 3043604636454000398, guid: f4fb0bba7fdf04e408db68754dd2ae4d, type: 3}
+  - {fileID: 752756994060606063, guid: 75a3229b1091378429a654455e280988, type: 3}
+  backgroundPrefabPosition: {x: 0, y: -5, z: 0}
+  activeButtonColor: {r: 0.854902, g: 0.121568635, b: 0.14901961, a: 1}
+  passiveButtonColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  adMoneyMultiplyer: 2

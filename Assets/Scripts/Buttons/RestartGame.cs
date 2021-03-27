@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RestartGame : MonoBehaviour
 {
-    [SerializeField] LevelManager levelManager;
-    public void RestartTheGame()
+    public void ResetTheGame()
     {
-        levelManager.StopPlayingLevel();
-        levelManager.StartPlayingLevel();
+        SavedValues.DeleteSave();
+        EditorApplication.ExitPlaymode();
     }
 }

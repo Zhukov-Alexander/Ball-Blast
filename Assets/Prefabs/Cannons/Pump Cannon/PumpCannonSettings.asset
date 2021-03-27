@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b5906a6a8f7ce4db8bf662a3743cb3, type: 3}
+  m_Name: PumpCannonSettings
+  m_EditorClassIdentifier: 
+  cannonName: Pump
+  bulletsDamageMultiplyer: 0.6
+  cannonMoveForceMultiplyer: 1.1
+  bonusProbabilityMultiplyer: 1.1
+  bulletsPerSecondMultiplyer: 1.4
+  healthMultiplyer: 0.7
+  armorMultiplyer: 1.1

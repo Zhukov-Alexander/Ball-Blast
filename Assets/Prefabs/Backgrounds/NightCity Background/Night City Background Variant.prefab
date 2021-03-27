@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-613165276929822704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5320636986488398322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41741a2af50ddd48a309bd9a73c4405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundSettings: {fileID: 11400000, guid: 7d81463bf8b29b54887508011f2f115e, type: 2}
+--- !u!60 &4170512294856682573
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548234524087359556}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.62, y: 2.105}
+    newSize: {x: 5.62, y: 2.105}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.077281, y: 0.87347794}
+      - {x: 1.3460399, y: 0.8701527}
+      - {x: 0.29955715, y: 0.8349135}
+      - {x: -1.1827984, y: 0.92397594}
+      - {x: -2.2438226, y: 0.87015295}
+      - {x: -2.8033524, y: 0.85447073}
+      - {x: -2.81, y: -1.055}
+      - {x: 2.81, y: -1.055}
+      - {x: 2.7861774, y: 0.8577981}
+--- !u!1001 &4860573712505015887
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4009246461215958002, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3178556776866025727, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1023869151
+      objectReference: {fileID: 0}
+    - target: {fileID: -3178556776866025727, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 766325709550694333, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_Name
+      value: Night City Background Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663131790668390419, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 860936069
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663131790668390419, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663131790668390419, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663131790668390419, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 3909813959501386604, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1023869151
+      objectReference: {fileID: 0}
+    - target: {fileID: 3909813959501386604, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: -8168777422993209248, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+    type: 3}
+--- !u!1 &5320636986488398322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 766325709550694333, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+    type: 3}
+  m_PrefabInstance: {fileID: 4860573712505015887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &548234524087359556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4967332327796741643, guid: 5ec1842ad19cb3840b69ee8a2589f5db,
+    type: 3}
+  m_PrefabInstance: {fileID: 4860573712505015887}
+  m_PrefabAsset: {fileID: 0}

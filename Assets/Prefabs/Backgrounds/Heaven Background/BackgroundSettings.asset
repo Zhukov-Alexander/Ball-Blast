@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbdd3f80698e9df4db5b2da59cb811a3, type: 3}
+  m_Name: BackgroundSettings
+  m_EditorClassIdentifier: 
+  bulletsDamageMultiplyer: 1.08
+  cannonMoveForceMultiplyer: 1.06
+  bonusProbabilityMultiplyer: 1
+  bulletsPerSecondMultiplyer: 1
+  healthMultiplyer: 1.06
+  armorMultiplyer: 1
