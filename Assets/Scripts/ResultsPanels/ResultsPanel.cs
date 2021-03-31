@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Advertisements;
+using UnityEngine.Localization;
 using static GameConfigContainer;
 
 public class ResultsPanel : MonoBehaviour
 {
+    [SerializeField] LocalizedString campainMode;
+    [SerializeField] LocalizedString bossfightMode;
+    [SerializeField] LocalizedString winLS;
+    [SerializeField] LocalizedString loseLS;
     [SerializeField] ParticleSystem winPS;
     [SerializeField] ParticleSystem losePS;
     [SerializeField] Animator crownAnimator;
@@ -21,63 +28,85 @@ public class ResultsPanel : MonoBehaviour
     public static Action OnHide { get; set; }
     public void Hide()
     {
-        OnHide();
-        UIAnimation.Close(gameObject).AppendCallback(() => Destroy(gameObject)).Play();
+        if (AdManager.Instance.IsTimeReady() && AdManager.Instance.IsAdReady(AdManager.Instance.VideoId))
+        {
+            AdManager.Instance.ShowAd(AdManager.Instance.VideoId, (result) =>
+            {
+                OnHide();
+                UIAnimation.Close(gameObject).AppendCallback(() => Destroy(gameObject)).Play();
+            });
+        }
+        else
+        {
+            OnHide();
+            UIAnimation.Close(gameObject).AppendCallback(() => Destroy(gameObject)).Play();
+        }
     }
     public void SetCampainWin()
     {
-        SetWin();
-        SetCampain();
+        StartCoroutine(SetWin());
+        StartCoroutine(SetCampain());
         UIAnimation.Open(gameObject).AppendCallback(AnimateWin).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.currentPoints)).Play();
     }
     public void SetCampainLose()
     {
-        SetLose();
-        SetCampain();
+        StartCoroutine(SetLose());
+        StartCoroutine(SetCampain());
         UIAnimation.Open(gameObject).AppendCallback(AnimateLose).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.currentPoints)).Play();
     }
     public void SetBossfightWin()
     {
-        SetWin();
-        SetBossfight();
+        StartCoroutine(SetWin());
+        StartCoroutine(SetBossfight());
         UIAnimation.Open(gameObject).AppendCallback(AnimateWin).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.maxPoints - LevelProgression.currentPoints)).Play();
         CalculateBossfightAdMoney();
-        addButtonGO.SetActive(true);
+        if(AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)) addButtonGO.SetActive(true);
+        else addButtonGO.SetActive(false);
     }
     public void SetBossfightLose()
     {
-        SetLose();
-        SetBossfight();
+        StartCoroutine(SetLose());
+        StartCoroutine(SetBossfight());
         addButtonGO.SetActive(false);
         UIAnimation.Open(gameObject).AppendCallback(AnimateLose).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.maxPoints - LevelProgression.currentPoints)).Play();
 
     }
-    void SetCampain()
+    IEnumerator SetCampain()
     {
         slider.SetResultCampainNumbers();
         level.text = (SavedValues.Instance.CampainLevel).ToString();
-        mod.text = "Level";
         slider.SetCampainIcon();
         slider.SetSlider(1,0);
         CalculateCampainAdMoney();
         if (money <= 0) addButtonGO.SetActive(false); 
-        else addButtonGO.SetActive(true);
+        else if(AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)) addButtonGO.SetActive(true);
+        var lsa = campainMode.GetLocalizedString();
+        yield return lsa;
+        mod.text = lsa.Result;
+
     }
-    void SetBossfight()
+    IEnumerator SetBossfight()
     {
         slider.SetResultBossNumbers();
         level.text = (SavedValues.Instance.BossfightLevel).ToString();
-        mod.text = "Bossfight";
         slider.SetBossfightIcon();
         slider.SetSlider(1, 0);
+        var lsa = bossfightMode.GetLocalizedString();
+        yield return lsa;
+        mod.text = lsa.Result;
+
     }
-    void SetWin()
+    IEnumerator SetWin()
     {
-        state.text = "Complete";
+        var lsa = winLS.GetLocalizedString();
+        yield return lsa;
+        state.text = lsa.Result;
     }
-    void SetLose()
+    IEnumerator SetLose()
     {
-        state.text = "Failed";
+        var lsa = loseLS.GetLocalizedString();
+        yield return lsa;
+        state.text = lsa.Result;
     }
     void CalculateCampainAdMoney()
     {
@@ -91,9 +120,15 @@ public class ResultsPanel : MonoBehaviour
     }
     public void ClickAdButton()
     {
-        SavedValues.Instance.Coins += money;
-        addButtonGO.SetActive(false);
-        Hide();
+        AdManager.Instance.ShowAd(AdManager.Instance.RewardedVideoId, (result) =>
+        {
+            if (result == ShowResult.Finished)
+            {
+                SavedValues.Instance.Coins += money;
+            }
+            addButtonGO.SetActive(false);
+            Hide();
+        });
     }
     void AnimateWin()
     {

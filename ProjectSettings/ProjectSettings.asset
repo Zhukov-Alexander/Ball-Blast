@@ -624,10 +624,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 6bdc86c4-3313-4d43-a05e-6227fe03a4b1
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: 'Cannon: Shoot And Upgrade'
+  organizationId: alexandersergeevichzhukov
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

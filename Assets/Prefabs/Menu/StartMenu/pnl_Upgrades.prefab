@@ -67,7 +67,7 @@ MonoBehaviour:
   m_text: 1.56K
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -345,8 +345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 184.1536, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &3688581848192906236
 CanvasRenderer:
@@ -455,10 +455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956c87c6dbf6f87418a3dedf93d5fd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 642526093889536
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 3688581848192906238}
   headerBackground: {fileID: 3688581848192906239}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Cannon Lives
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}
@@ -606,7 +612,7 @@ MonoBehaviour:
   m_text: 1.32K
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -952,8 +958,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 92.0768, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5026855663385587804
 CanvasRenderer:
@@ -1062,10 +1068,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8bdada5a25eda74986c9b0dae593527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 642024446742528
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 5026855663385587806}
   headerBackground: {fileID: 5026855663385587805}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Cannon Speed
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}
@@ -1139,7 +1151,7 @@ MonoBehaviour:
   m_text: 1.23K * 130% =
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1165,7 +1177,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 71.8
+  m_fontSize: 71.85
   m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1374,7 +1386,7 @@ MonoBehaviour:
   m_text: Fire rate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1673,6 +1685,7 @@ GameObject:
   - component: {fileID: 5026855663770752704}
   - component: {fileID: 5026855663770752718}
   - component: {fileID: 5026855663770752719}
+  - component: {fileID: 3160923799397698424}
   m_Layer: 5
   m_Name: txt_UpgradeButton
   m_TagString: Untagged
@@ -1697,7 +1710,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -52.60498, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5026855663770752718
 CanvasRenderer:
@@ -1726,10 +1739,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upgrade
+  m_text: "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1755,12 +1768,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 80
+  m_fontSize: 70.15
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -1796,7 +1809,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5026855663770752719}
-    characterCount: 7
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1819,6 +1832,40 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3160923799397698424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026855663770752705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 644233104314368
+      m_Key: 
+    m_FallbackState: 0
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5026855663770752719}
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5026855664080219616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1905,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5026855664080219627
 CanvasRenderer:
@@ -1967,10 +2014,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be75237fccb3324b916dde446555a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 637495701524480
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 5026855664080219629}
   headerBackground: {fileID: 5026855664080219628}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Fire Rate
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}
@@ -2014,8 +2067,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 368.3072, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5026855664366256971
 CanvasRenderer:
@@ -2124,10 +2177,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1c1c0d30f124a419072b587b812ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 642917921574912
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 5026855664366256973}
   headerBackground: {fileID: 5026855664366256972}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Bullet Damage
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}
@@ -2299,7 +2358,7 @@ GameObject:
   - component: {fileID: 5026855664821814364}
   - component: {fileID: 5026855664821814360}
   m_Layer: 5
-  m_Name: btn_Piercing
+  m_Name: btn_Bonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2322,8 +2381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 460.38397, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5026855664821814361
 CanvasRenderer:
@@ -2432,10 +2491,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b424fa9192afb4746b509141a061e735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 643042060390400
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 5026855664821814363}
   headerBackground: {fileID: 5026855664821814362}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Piercing
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}
@@ -2629,8 +2694,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 276.2304, y: 0}
-  m_SizeDelta: {x: 92.0768, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8321261239094069332
 CanvasRenderer:
@@ -2739,10 +2804,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4850adcad14aeb549ab0057591efd52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localizedString:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 642816377475072
+      m_Key: 
+    m_FallbackState: 0
   headerButton: {fileID: 8321261239094069334}
   headerBackground: {fileID: 8321261239094069335}
   upgradeForeground: {fileID: 5026855663767763074}
-  upgradeName: Cannon Armor
   upgradeNameTMP: {fileID: 5026855663712224845}
   upgradeStatsTMP: {fileID: 5026855663486857551}
   upgradeStatsResultTMP: {fileID: 3919852020020678791}

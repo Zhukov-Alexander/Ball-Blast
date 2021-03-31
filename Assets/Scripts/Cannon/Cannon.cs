@@ -69,9 +69,11 @@ public class Cannon : MonoBehaviour
     ContactFilter2D contactFilter2DRightWall;
     Boss boss;
     private bool canCollideWithBall = true;
+    new Camera camera;
 
     private void Awake()
     {
+        camera = Camera.main;
         speed = particleSystems[0].main.startSpeed.constant;
         gravityMin = particleSystems[0].main.gravityModifier.constantMin;
         gravityMax = particleSystems[0].main.gravityModifier.constantMax;
@@ -117,7 +119,7 @@ public class Cannon : MonoBehaviour
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
-                Vector3 touchInWorld = touch.GetTouchPoint();
+                Vector3 touchInWorld = touch.GetTouchPoint(camera);
                 if (cannonRigidbody2D.position.x < touchInWorld.x - gameConfig.moveBuffer)
                 {
                     if (!auraCollider.IsTouching(contactFilter2DRightWall))
@@ -149,7 +151,6 @@ public class Cannon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball") && canCollideWithBall && !ballIDs.Contains(collision.GetInstanceID()))
         {
-            Debug.Log("collision.ID " + collision.GetInstanceID());
             ballIDs.Add(collision.GetInstanceID());
             collision.enabled = false;
             Ball ball = collision.gameObject.GetComponentInParent<Ball>();

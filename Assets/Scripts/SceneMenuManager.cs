@@ -7,11 +7,15 @@ using DG.Tweening;
 using ScrollSnaps;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 using static GameConfigContainer;
 
 public class SceneMenuManager : MonoBehaviour
 {
+    [SerializeField] LocalizedString defeatTheLS;
+    [SerializeField] TableReference tableReference;
     [SerializeField] SliderScript slider;
     [SerializeField] Scroll scroll;
     [SerializeField] Image openButtonImg;
@@ -106,13 +110,20 @@ public class SceneMenuManager : MonoBehaviour
             chooseButtonBtn.gameObject.SetActive(false);
             openButtonBtn.gameObject.SetActive(true);
             progressCondition.gameObject.SetActive(true);
-            SetCondition();
+            StartCoroutine(SetCondition());
             SetOpenButton();
         }
 
-        void SetCondition()
+        IEnumerator SetCondition()
         {
-            progressCondition.text = "Defeat the " + gameConfig.bossPrefabs[activeCannonScrollView.Background.PrefabNumber - 1].GetComponent<Boss>().BossSettings.bossName.ToUpper();
+            TableEntryReference tableEntryReference = gameConfig.bossPrefabs[activeCannonScrollView.Background.PrefabNumber - 1].GetComponent<Boss>().BossSettings.bossName;
+            var ls = new LocalizedString();
+            ls.SetReference(tableReference, tableEntryReference);
+            var lsa = ls.GetLocalizedString();
+            var defeatTheLSa = defeatTheLS.GetLocalizedString();
+            yield return lsa;
+            if (!defeatTheLSa.IsDone) yield return defeatTheLSa;
+            progressCondition.text = defeatTheLSa.Result + " " + lsa.Result.ToUpper();
         }
 
         void SetOpenButton()

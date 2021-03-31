@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 4818438249430646035}
   - component: {fileID: 3394622115880835991}
   - component: {fileID: 390532308463946187}
+  - component: {fileID: 8997637221116423883}
   m_Layer: 5
   m_Name: LastChancePanelText (TMP)
   m_TagString: Untagged
@@ -195,7 +196,7 @@ MonoBehaviour:
   m_text: Second Chance?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -285,6 +286,40 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8997637221116423883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555987949724162915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 383773712961536
+      m_Key: 
+    m_FallbackState: 0
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 390532308463946187}
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2192565513538843348
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +499,7 @@ GameObject:
   - component: {fileID: 4292537685274090369}
   - component: {fileID: 4292537685274090371}
   - component: {fileID: 4292537685274090368}
+  - component: {fileID: 8199257741896277645}
   m_Layer: 5
   m_Name: LastChancePanelText (TMP)
   m_TagString: Untagged
@@ -520,7 +556,7 @@ MonoBehaviour:
   m_text: Second Chance?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e7471b0e8b95334b9bdbecd3fc0df73, type: 2}
-  m_sharedMaterial: {fileID: 4135069273348700522, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
+  m_sharedMaterial: {fileID: -4595118991409290018, guid: 9e7471b0e8b95334b9bdbecd3fc0df73,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -610,6 +646,40 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8199257741896277645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292537685274090374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:48afc7f09e620af41b780226fc2e7d21
+    m_TableEntryReference:
+      m_KeyId: 383773712961536
+      m_Key: 
+    m_FallbackState: 0
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4292537685274090368}
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4292537685944858713
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +732,7 @@ MonoBehaviour:
   chanceCost: 1
   container: {fileID: 7270551724784851305}
   takeChanceStone: {fileID: 2573316210495667077}
+  takeChanceAd: {fileID: 4292537686353471199}
 --- !u!1 &4292537686353471199
 GameObject:
   m_ObjectHideFlags: 0

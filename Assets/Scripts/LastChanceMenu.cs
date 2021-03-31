@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 public class LastChanceMenu : MonoBehaviour
@@ -11,6 +12,7 @@ public class LastChanceMenu : MonoBehaviour
     [SerializeField] int chanceCost;
     [SerializeField] GameObject container;
     [SerializeField] GameObject takeChanceStone;
+    [SerializeField] GameObject takeChanceAd;
     public static Action OnLastChanceTaken { get; set; }
     public static bool isTaken = false;
     private void Awake()
@@ -19,10 +21,15 @@ public class LastChanceMenu : MonoBehaviour
     }
     public void TakeChanceAd()
     {
-        //watch ads
-        isTaken = true;
-        OnLastChanceTaken();
-        HideLastChanceMenu();
+        AdManager.Instance.ShowAd(AdManager.Instance.RewardedVideoId, (result) =>
+        {
+            if (result == ShowResult.Finished)
+            {
+                isTaken = true;
+                OnLastChanceTaken();
+            }
+            HideLastChanceMenu();
+        });
     }
     public void TakeChanceStone()
     {
@@ -46,7 +53,7 @@ public class LastChanceMenu : MonoBehaviour
 
     private void ShowLastChanceMenu()
     {
-        if (isTaken)
+        if (isTaken || (SavedValues.Instance.Diamonds >= chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
         {
             isTaken = false;
             if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
@@ -69,6 +76,14 @@ public class LastChanceMenu : MonoBehaviour
             else
             {
                 takeChanceStone.SetActive(false);
+            }
+            if (AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId))
+            {
+                takeChanceAd.SetActive(true);
+            }
+            else
+            {
+                takeChanceAd.SetActive(false);
             }
             container.SetActive(true);
             Time.timeScale = 0;

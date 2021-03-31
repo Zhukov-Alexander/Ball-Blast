@@ -6,18 +6,20 @@ using UnityEngine;
 
 public class StartMenu : MonoBehaviour
 {
+    [SerializeField] GameObject touchPanel;
     [SerializeField] GameObject optionesMenu;
     [SerializeField] GameObject sceneMenuManager;
     [SerializeField] GameObject cannonMenuManager;
-    [SerializeField] Animator animator;
     public static Action OnExit { get; set; }
     public static Action OnEnter { get; set; }
     public static Action OnFirstEnter { get; set; }
+    private bool canStartLevel = true;
+
 
     private void Awake()
     {
-        OnEnter += () => animator.SetTrigger("Open");
-        OnExit += () => animator.SetTrigger("Close");
+        OnEnter += () => UIAnimation.Open(gameObject);
+        OnExit += () => UIAnimation.Close(gameObject);
         LevelMenu.AddToStart(() => OnExit());
         ResultsPanel.OnHide += () => OnEnter();
         CannonMenuManager.OnEnter += () => OnExit();
@@ -26,6 +28,8 @@ public class StartMenu : MonoBehaviour
         SceneMenuManager.OnExit += () => OnEnter();
         OptionesMenuManager.OnExit += () => OnEnter();
         OnFirstEnter += OptionesMenuManager.UpdateState;
+        OnExit += () => canStartLevel = false;
+        OnEnter += () => canStartLevel = true;
     }
     private void Start()
     {
@@ -50,4 +54,26 @@ public class StartMenu : MonoBehaviour
         UIAnimation.Open(Instantiate(optionesMenu, GetComponentInParent<Canvas>().transform, false));
         OnExit();
     }
+    private void FixedUpdate()
+    {
+        if (canStartLevel == true)
+        {
+            if ((Input.touchCount > 0 && HelperClass.IsTouchOverObject(touchPanel)) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                StartGame();
+            }
+        }
+    }
+    public void StartGame()
+    {
+        if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
+        {
+            LevelMenu.OnStartCampain();
+        }
+        else if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
+        {
+            LevelMenu.OnStartBossfight();
+        }
+    }
+
 }

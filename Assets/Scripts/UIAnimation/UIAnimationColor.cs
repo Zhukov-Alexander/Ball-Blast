@@ -9,15 +9,30 @@ public class UIAnimationColor : UIAnimation
 {
     [SerializeField] float timeToFade;
     List<float> initialAlphas;
+
+    public List<float> InitialAlphas
+    {
+        get
+        {
+            if (initialAlphas == null)
+            {
+                List<Graphic> graphics = GetComponentsInChildren<Graphic>(true).ToList();
+                initialAlphas = new List<float>();
+                for (int i = 0; i < graphics.Count; i++)
+                {
+                    InitialAlphas.Add(graphics[i].color.a);
+                }
+            }
+            return initialAlphas;
+        }
+    }
     public override Sequence Open()
     {
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
         List<Graphic> graphics = GetComponentsInChildren<Graphic>().ToList();
-        initialAlphas = new List<float>();
         for (int i = 0; i < graphics.Count; i++)
         {
-            initialAlphas.Add(graphics[i].color.a);
-            sequence.Join(graphics[i].DOFade(initialAlphas[i], timeToFade).From(0).SetEase(Ease.OutSine));
+            sequence.Join(graphics[i].DOFade(InitialAlphas[i], timeToFade).From(0).SetEase(Ease.OutSine));
         }
         return sequence;
     }

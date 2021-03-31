@@ -6,13 +6,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using static GameConfigContainer;
+using UnityEngine.Localization;
 
 public abstract class UpgradeManager : MonoBehaviour
 {
+    [SerializeField] LocalizedString localizedString;
     [SerializeField] Button headerButton;
     [SerializeField] Image headerBackground;
     [SerializeField] Image upgradeForeground;
-    [SerializeField] string upgradeName;
     [SerializeField] TextMeshProUGUI upgradeNameTMP;
     [SerializeField] protected TextMeshProUGUI upgradeStatsTMP;
     [SerializeField] protected TextMeshProUGUI upgradeStatsResultTMP;
@@ -41,7 +42,7 @@ public abstract class UpgradeManager : MonoBehaviour
     unsafe protected void SetThisUpgrade(int* statLevel, float baseAmount, float multiplyer, float statProgression, float costProgression)
     {
         SetHeader();
-        SetCurrentUpgradeText();
+        StartCoroutine(SetCurrentUpgradeText());
         SetCurrentUpgradeStats();
         SetUpgradeCost();
         SetUpgradeButton();
@@ -54,9 +55,11 @@ public abstract class UpgradeManager : MonoBehaviour
             }
             headerBackground.color = gameConfig.activeHeaderColor;
         }
-        void SetCurrentUpgradeText()
+        IEnumerator SetCurrentUpgradeText()
         {
-            upgradeNameTMP.text = upgradeName;
+            var ls = localizedString.GetLocalizedString();
+            yield return ls;
+            upgradeNameTMP.text = ls.Result;
         }
         void SetCurrentUpgradeStats()
         {

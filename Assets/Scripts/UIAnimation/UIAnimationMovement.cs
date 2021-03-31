@@ -14,7 +14,6 @@ public class UIAnimationMovement : UIAnimation
         Sequence sequence = DOTween.Sequence();
         if (gameObject.TryGetComponent(out RectTransform rect))
         {
-            openedPosition = rect.position;
             sequence.Join(rect.DOAnchorPos(openedPosition, timeToMove).From(closedPosition).SetEase(Ease.OutSine));
         }
         return sequence;

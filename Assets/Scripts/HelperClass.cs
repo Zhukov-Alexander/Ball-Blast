@@ -1,12 +1,44 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using Random = System.Random;
 
 public static class HelperClass
 {
     static Random random = new Random();
+    public static IEnumerator CheckInternetConnection(Action<bool> action, float waitTime = 0.5f)
+    {
+        UnityWebRequest www = new UnityWebRequest("http://google.com");
+        yield return new WaitForSecondsRealtime(waitTime);
+        if (!www.isDone || www.error != null)
+        {
+            action(false);
+        }
+        else
+        {
+            action(true);
+        }
+    }
+    public static bool IsTouchOverObject(GameObject gameObject)
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            EventSystem eventSystem = EventSystem.current;
+            PointerEventData pointerEventData = new PointerEventData(eventSystem)
+            {
+                position = touch.position
+            };
+            List<RaycastResult> raycastResultList = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
+            return raycastResultList[0].gameObject == gameObject;
+        }
+        return false;
+    }
     public static float RandomFloat(float min, float max)
     {
         double range = max - min;
@@ -75,9 +107,9 @@ public static class HelperClass
 
         return null;
     }
-    public static Vector3 GetTouchPoint(this Touch touch)
+    public static Vector3 GetTouchPoint(this Touch touch, Camera camera)
     {
-        Ray ray = Camera.current.ScreenPointToRay(touch.position);
+        Ray ray = camera.ScreenPointToRay(touch.position);
         new Plane(Vector3.up, 0).Raycast(ray, out float enter);
         return ray.GetPoint(enter);
     }
