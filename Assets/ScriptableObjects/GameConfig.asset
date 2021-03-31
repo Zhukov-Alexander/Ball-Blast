@@ -128,7 +128,7 @@ MonoBehaviour:
   - 1
   coinWeights: 1e0000005a0000000e010000
   randomCoinsMultiplyer: {x: 0.7, y: 1.4}
-  amountOfSpawnedDiamonds: 5
+  amountOfSpawnedDiamonds: 3
   diamondPrefab: {fileID: 5640022662767708086, guid: ba9b7ef85c2cc21428a57a5e11180bc3,
     type: 3}
   diamondColor: {r: 0.22352943, g: 0.67058825, b: 0.67058825, a: 1}

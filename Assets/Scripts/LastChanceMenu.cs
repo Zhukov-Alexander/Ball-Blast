@@ -53,7 +53,7 @@ public class LastChanceMenu : MonoBehaviour
 
     private void ShowLastChanceMenu()
     {
-        if (isTaken || (SavedValues.Instance.Diamonds >= chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
+        if (isTaken || (SavedValues.Instance.Diamonds < chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
         {
             isTaken = false;
             if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)

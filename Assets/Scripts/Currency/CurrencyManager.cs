@@ -63,7 +63,7 @@ public class CurrencyManager : MonoBehaviour
         {
             GameObject diamondGO = Instantiate(gameConfig.diamondPrefab, position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
             Diamond diamond = diamondGO.GetComponent<Diamond>();
-            diamond.Weight = 1;
+            diamond.Weight = SavedValues.Instance.BossfightLevel;
         }
     }
     public void SetCoins()
