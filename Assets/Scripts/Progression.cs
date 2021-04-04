@@ -6,11 +6,11 @@ public static class Progression
 {
     public static float GetBossfightProgression()
     {
-        return GetLevelProgression(SavedValues.Instance.BossfightLevel, 6);
+        return GetLevelProgression(SaveManager.Instance.SavedValues.BossfightLevel, 6);
     }
     public static float GetCampainProgression()
     {
-        return GetLevelProgression(SavedValues.Instance.CampainLevel, 1);
+        return GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, 1);
     }
     public static float GetLevelProgression(int level, float coef)
     {
@@ -34,18 +34,18 @@ public static class Progression
     }
     public static float GetBonusProbabilityProgression()
     {
-        return InverseFuncPoint(SavedValues.Instance.BonusProbabilityUpgradeLevel, 5, 1);
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.BonusProbabilityUpgradeLevel, 5, 1);
     }
     public static float GetBulletsPerSecondProgression()
     {
-        return InverseFuncPoint(SavedValues.Instance.BulletsPerSecondUpgradeLevel, 4, 1);
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.BulletsPerSecondUpgradeLevel, 4, 1);
     }
     public static float GetBulletsSpeedProgression()
     {
-        return InverseFuncPoint(SavedValues.Instance.BulletsPerSecondUpgradeLevel, 2, 1);
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.BulletsPerSecondUpgradeLevel, 2, 1);
     }
     public static float GetCannonMoveForceProgression()
     {
-        return InverseFuncPoint(SavedValues.Instance.CannonMoveForceUpgradeLevel, 3, 1);
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.CannonMoveForceUpgradeLevel, 3, 1);
     }
 }

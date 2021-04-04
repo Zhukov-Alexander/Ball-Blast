@@ -30,11 +30,8 @@ public class StartMenu : MonoBehaviour
         OnFirstEnter += OptionesMenuManager.UpdateState;
         OnExit += () => canStartLevel = false;
         OnEnter += () => canStartLevel = true;
-    }
-    private void Start()
-    {
-        OnFirstEnter();
-        OnEnter();
+        SaveManager.Instance.OnLoaded += () => OnFirstEnter();
+        SaveManager.Instance.OnLoaded += () => OnEnter();
     }
     public void OpenCannonMenu()
     {

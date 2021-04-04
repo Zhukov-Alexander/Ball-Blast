@@ -34,12 +34,14 @@ public class ResultsPanel : MonoBehaviour
             {
                 OnHide();
                 UIAnimation.Close(gameObject).AppendCallback(() => Destroy(gameObject)).Play();
+                SaveManager.Instance.SaveCloud();
             });
         }
         else
         {
             OnHide();
             UIAnimation.Close(gameObject).AppendCallback(() => Destroy(gameObject)).Play();
+            SaveManager.Instance.SaveCloud();
         }
     }
     public void SetCampainWin()
@@ -74,7 +76,7 @@ public class ResultsPanel : MonoBehaviour
     IEnumerator SetCampain()
     {
         slider.SetResultCampainNumbers();
-        level.text = (SavedValues.Instance.CampainLevel).ToString();
+        level.text = (SaveManager.Instance.SavedValues.CampainLevel).ToString();
         slider.SetCampainIcon();
         slider.SetSlider(1,0);
         CalculateCampainAdMoney();
@@ -88,7 +90,7 @@ public class ResultsPanel : MonoBehaviour
     IEnumerator SetBossfight()
     {
         slider.SetResultBossNumbers();
-        level.text = (SavedValues.Instance.BossfightLevel).ToString();
+        level.text = (SaveManager.Instance.SavedValues.BossfightLevel).ToString();
         slider.SetBossfightIcon();
         slider.SetSlider(1, 0);
         var lsa = bossfightMode.GetLocalizedString();
@@ -124,7 +126,7 @@ public class ResultsPanel : MonoBehaviour
         {
             if (result == ShowResult.Finished)
             {
-                SavedValues.Instance.Coins += money;
+                SaveManager.Instance.SavedValues.Coins += money;
             }
             addButtonGO.SetActive(false);
             Hide();

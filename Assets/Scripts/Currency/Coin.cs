@@ -9,7 +9,7 @@ public class Coin : Currency
     public override void Collect()
     {
         SoundManager.Instance.Coin();
-        SavedValues.Instance.Coins += Weight;
+        SaveManager.Instance.SavedValues.Coins += Weight;
         Instantiate(floatingText, transform.position, Quaternion.identity).GetComponent<FloatingText>().SetText("+" + Weight.NumberToTextInOneLineWithoutFraction(), gameConfig.coinColor);
         Destroy();
     }

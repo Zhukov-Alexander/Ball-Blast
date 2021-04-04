@@ -6,13 +6,13 @@ public class CannonHealthUM : UpgradeManager
     {
         base.SetThisUpgrade();
 
-        fixed (int* i = &SavedValues.Instance.cannonLivesUpgradeLevel)
+        fixed (int* i = &SaveManager.Instance.SavedValues.cannonLivesUpgradeLevel)
             SetThisUpgrade(
                 i, 
                 GameConfigContainer.gameConfig.health, 
                 CannonManager.Cannon.CannonSettings.healthMultiplyer * BackgroundManager.Background.backgroundSettings.healthMultiplyer,
-                Progression.GetStatAmountProgression(SavedValues.Instance.CannonHealthUpgradeLevel),
-                Progression.GetStatUpgradeCostProgression(SavedValues.Instance.CannonHealthUpgradeLevel));
+                Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.CannonHealthUpgradeLevel),
+                Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.CannonHealthUpgradeLevel));
     }
 
 }

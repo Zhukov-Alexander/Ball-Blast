@@ -6,12 +6,12 @@ public class CannonMoveForceUM : UpgradeManager
     unsafe protected override void SetThisUpgrade()
     {
         base.SetThisUpgrade();
-        fixed (int* i = &SavedValues.Instance.cannonSpeedUpgradeLevel)
+        fixed (int* i = &SaveManager.Instance.SavedValues.cannonSpeedUpgradeLevel)
             SetThisUpgrade(i,
                 GameConfigContainer.gameConfig.cannonMoveForce,
                 CannonManager.Cannon.CannonSettings.cannonMoveForceMultiplyer * BackgroundManager.Background.backgroundSettings.cannonMoveForceMultiplyer,
                 Progression.GetCannonMoveForceProgression(),
-                Progression.GetStatUpgradeCostProgression(SavedValues.Instance.CannonMoveForceUpgradeLevel));
+                Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.CannonMoveForceUpgradeLevel));
 
     }
 

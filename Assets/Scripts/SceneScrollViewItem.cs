@@ -30,7 +30,7 @@ public class SceneScrollViewItem : MonoBehaviour
     }
     public void UpdateCannonColor()
     {
-        if (SavedValues.Instance.OpendBackgroundsPrefabIndexes.Contains(Background.PrefabNumber))
+        if (SaveManager.Instance.SavedValues.OpendBackgroundsPrefabIndexes.Contains(Background.PrefabNumber))
         {
             Background.gameObject.GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(a => a.color = Color.white);
 

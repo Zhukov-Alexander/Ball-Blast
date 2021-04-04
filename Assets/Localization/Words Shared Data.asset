@@ -167,6 +167,22 @@ MonoBehaviour:
     m_Key: Defeat
     m_Metadata:
       m_Items: []
+  - m_Id: 1832149998489600
+    m_Key: Cannoneer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1832429632737280
+    m_Key: Shooting Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2848844271702016
+    m_Key: ShareText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2850622543351808
+    m_Key: Title
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -25,20 +25,20 @@ public class LevelSlider : SliderScript
     }
     public void SetLevelBossNumbers()
     {
-        rightNumber.text = SavedValues.Instance.BossfightLevel.ToString();
+        rightNumber.text = SaveManager.Instance.SavedValues.BossfightLevel.ToString();
     }
     public void SetLevelCampainNumbers()
     {
-        rightNumber.text = SavedValues.Instance.CampainLevel.ToString();
+        rightNumber.text = SaveManager.Instance.SavedValues.CampainLevel.ToString();
     }
     public void SetResultBossNumbers()
     {
-        leftNumber.text = (SavedValues.Instance.BossfightLevel).ToString();
-        rightNumber.text = (SavedValues.Instance.BossfightLevel + 1).ToString();
+        leftNumber.text = (SaveManager.Instance.SavedValues.BossfightLevel).ToString();
+        rightNumber.text = (SaveManager.Instance.SavedValues.BossfightLevel + 1).ToString();
     }
     public void SetResultCampainNumbers()
     {
-        leftNumber.text = (SavedValues.Instance.CampainLevel).ToString();
-        rightNumber.text = (SavedValues.Instance.CampainLevel + 1).ToString();
+        leftNumber.text = (SaveManager.Instance.SavedValues.CampainLevel).ToString();
+        rightNumber.text = (SaveManager.Instance.SavedValues.CampainLevel + 1).ToString();
     }
 }

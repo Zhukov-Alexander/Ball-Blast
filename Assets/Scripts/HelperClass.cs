@@ -10,11 +10,11 @@ using Random = System.Random;
 public static class HelperClass
 {
     static Random random = new Random();
-    public static IEnumerator CheckInternetConnection(Action<bool> action, float waitTime = 0.5f)
+    public static IEnumerator CheckInternetConnection(Action<bool> action)
     {
         UnityWebRequest www = new UnityWebRequest("http://google.com");
-        yield return new WaitForSecondsRealtime(waitTime);
-        if (!www.isDone || www.error != null)
+        yield return www;
+        if (www.error != null)
         {
             action(false);
         }
@@ -35,7 +35,10 @@ public static class HelperClass
             };
             List<RaycastResult> raycastResultList = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerEventData, raycastResultList);
-            return raycastResultList[0].gameObject == gameObject;
+            if (raycastResultList.Count > 0)
+                return raycastResultList[0].gameObject == gameObject;
+            else
+                return false;
         }
         return false;
     }

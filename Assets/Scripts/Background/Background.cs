@@ -8,6 +8,6 @@ public class Background : MonoBehaviour
     public int PrefabNumber { get; set; }
     public void UpdateProperties()
     {
-        PrefabNumber = SavedValues.Instance.ScenePrefabNumber;
+        PrefabNumber = SaveManager.Instance.SavedValues.ScenePrefabNumber;
     }
 }

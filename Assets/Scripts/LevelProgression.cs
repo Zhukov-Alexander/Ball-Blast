@@ -40,7 +40,7 @@ public class LevelProgression : MonoBehaviour
         if ((currentPoints > maxPoints || HelperClass.NearlyEqual(currentPoints, maxPoints, maxPoints * gameConfig.epsilon)) && !locked)
         {
             locked = true;
-            SavedValues.Instance.Diamonds++;
+            SaveManager.Instance.SavedValues.Diamonds++;
             LevelMenu.OnEndCampainWin();
         }
     }

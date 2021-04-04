@@ -33,8 +33,16 @@ public class CameraSizeAdjuster : Singleton<CameraSizeAdjuster>
     {
         if (componentCamera.orthographic)
         {
-            float constantWidthSize = initialSize * (targetAspect / componentCamera.aspect);
-            componentCamera.orthographicSize = Mathf.Lerp(constantWidthSize, initialSize, WidthOrHeight);
+            if (componentCamera.aspect > targetAspect)
+            {
+                float constantWidthSize = initialSize * (targetAspect / componentCamera.aspect);
+                componentCamera.orthographicSize = Mathf.Lerp(constantWidthSize, initialSize, 0.7f);
+            }
+            else
+            {
+                float constantWidthSize = initialSize * (targetAspect / componentCamera.aspect);
+                componentCamera.orthographicSize = Mathf.Lerp(constantWidthSize, initialSize, WidthOrHeight);
+            }
 
         }
         else
@@ -42,7 +50,7 @@ public class CameraSizeAdjuster : Singleton<CameraSizeAdjuster>
             float constantWidthFov = CalcVerticalFov(horizontalFov, componentCamera.aspect);
             componentCamera.fieldOfView = Mathf.Lerp(constantWidthFov, initialFov, WidthOrHeight);
         }
-        //transform.position = new Vector3(initialPos.x, initialPos.y - (componentCamera.scaledPixelHeight - DefaultResolution.y)/ 2 / 100f, initialPos.z);
+        transform.position = new Vector3(initialPos.x, initialPos.y - (initialSize - componentCamera.orthographicSize), initialPos.z);
 
     }
 

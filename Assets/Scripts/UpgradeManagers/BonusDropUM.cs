@@ -7,12 +7,12 @@ public class BonusDropUM : UpgradeManager
     {
         base.SetThisUpgrade();
 
-        fixed (int* i = &SavedValues.Instance.bonusDropProbabilityUpgradeLevel)
+        fixed (int* i = &SaveManager.Instance.SavedValues.bonusDropProbabilityUpgradeLevel)
             SetThisUpgrade(i,
                 GameConfigContainer.gameConfig.bonusProbability,
                 CannonManager.Cannon.CannonSettings.bonusProbabilityMultiplyer * BackgroundManager.Background.backgroundSettings.bonusProbabilityMultiplyer,
                 Progression.GetBonusProbabilityProgression(),
-                Progression.GetStatUpgradeCostProgression(SavedValues.Instance.BonusProbabilityUpgradeLevel));
+                Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.BonusProbabilityUpgradeLevel));
     }
 
 }

@@ -35,7 +35,7 @@ public class CannonScrollViewItem : MonoBehaviour
     }
     public void UpdateCannonColor()
     {
-        if (SavedValues.Instance.OpendCannonsPrefabIndexes.Contains(Cannon.PrefabNumber))
+        if (SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Contains(Cannon.PrefabNumber))
         {
             Cannon.gameObject.GetComponentsInChildren<SpriteRenderer>().ToList().ForEach(a => a.color = Color.white);
             Cannon.gameObject.GetComponentInChildren<Canvas>(true).gameObject.SetActive(true);

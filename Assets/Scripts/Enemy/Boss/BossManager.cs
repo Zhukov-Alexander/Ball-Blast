@@ -16,7 +16,7 @@ public class BossManager : MonoBehaviour
     }
     void InstantiateBoss()
     {
-        Boss = Instantiate(gameConfig.bossPrefabs[(SavedValues.Instance.BossfightLevel - 1) % (gameConfig.bossPrefabs.Count)], gameConfig.bossPrefabPosition, Quaternion.identity, transform).GetComponent<Boss>();
+        Boss = Instantiate(gameConfig.bossPrefabs[(SaveManager.Instance.SavedValues.BossfightLevel - 1) % (gameConfig.bossPrefabs.Count)], gameConfig.bossPrefabPosition, Quaternion.identity, transform).GetComponent<Boss>();
         OnBossInstantiated();
     }
 

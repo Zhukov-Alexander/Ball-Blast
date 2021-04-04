@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GooglePlayGames;
 using UnityEngine;
 
 public class LevelMenu : MonoBehaviour
@@ -22,8 +23,11 @@ public class LevelMenu : MonoBehaviour
         OnEndBossfightWin += () => Instantiate(resultsMenu, GetComponentInParent<Canvas>().transform, false).GetComponent<ResultsPanel>().SetBossfightWin();
         OnEndBossfightLose += () => Instantiate(resultsMenu, GetComponentInParent<Canvas>().transform, false).GetComponent<ResultsPanel>().SetBossfightLose();
 
-        OnEndCampainWin += () => SavedValues.Instance.CampainLevel++;
-        OnEndBossfightWin += () => SavedValues.Instance.BossfightLevel++;
+        OnEndCampainWin += () => SaveManager.Instance.SavedValues.CampainLevel++;
+        OnEndCampainWin += () => Social.ReportScore(SaveManager.Instance.SavedValues.CampainLevel, "CgkI-u2t7t4eEAIQAQ", (a) => { });
+        OnEndCampainLose += () => PlayGamesPlatform.Instance.IncrementAchievement("CgkI-u2t7t4eEAIQAA", 1, (bool success) => {});
+        OnEndBossfightLose += () => PlayGamesPlatform.Instance.IncrementAchievement("CgkI-u2t7t4eEAIQAA", 1, (bool success) => { });
+        OnEndBossfightWin += () => SaveManager.Instance.SavedValues.BossfightLevel++;
 
         AddToStart(() => GetComponentsInChildren<Animator>().ToList().ForEach(a=> a.SetTrigger("Open")));
         AddToEnd(() => GetComponentsInChildren<Animator>().ToList().ForEach(a=> a.SetTrigger("Close")));

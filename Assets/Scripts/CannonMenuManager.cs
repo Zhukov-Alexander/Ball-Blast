@@ -70,11 +70,11 @@ public class CannonMenuManager : MonoBehaviour
 
     void ChooseCannon()
     {
-        SavedValues.Instance.CannonPrefabNumber = activeCannonScrollView.Cannon.PrefabNumber;
+        SaveManager.Instance.SavedValues.CannonPrefabNumber = activeCannonScrollView.Cannon.PrefabNumber;
     }
     void SetUnlockedCannonsText()
     {
-        unlockedCannonsText.text = SavedValues.Instance.OpendCannonsPrefabIndexes.Count + "/" + gameConfig.cannonPrefabs.Count;
+        unlockedCannonsText.text = SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Count + "/" + gameConfig.cannonPrefabs.Count;
     }
 
     void AddCannonScrollViews()
@@ -96,7 +96,7 @@ public class CannonMenuManager : MonoBehaviour
         slider.SetSlider(activeCannonScrollViews.Count, index);
         //SetCannonName();
         SetCannonStats();
-        if (SavedValues.Instance.OpendCannonsPrefabIndexes.Contains(activeCannonScrollView.Cannon.PrefabNumber))
+        if (SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Contains(activeCannonScrollView.Cannon.PrefabNumber))
         {
             chooseButtonBtn.gameObject.SetActive(true);
             buyButtonBtn.gameObject.SetActive(false);
@@ -110,9 +110,9 @@ public class CannonMenuManager : MonoBehaviour
 
         void SetBuyButton()
         {
-            int cost = gameConfig.baseCannonCost * SavedValues.Instance.OpendCannonsPrefabIndexes.Count;
+            int cost = gameConfig.baseCannonCost * SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Count;
             cannonCost.text = cost.NumberToTextInOneLineWithoutFraction();
-            if (SavedValues.Instance.Diamonds >= cost)
+            if (SaveManager.Instance.SavedValues.Diamonds >= cost)
             {
                 buyButtonBtn.onClick.RemoveAllListeners();
                 buyButtonBtn.onClick.AddListener(Buy);
@@ -128,8 +128,8 @@ public class CannonMenuManager : MonoBehaviour
 
             void Buy()
             {
-                SavedValues.Instance.Diamonds -= cost;
-                SavedValues.Instance.OpendCannonsPrefabIndexes.Add(activeCannonScrollView.Cannon.PrefabNumber);
+                SaveManager.Instance.SavedValues.Diamonds -= cost;
+                SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Add(activeCannonScrollView.Cannon.PrefabNumber);
                 activeCannonScrollView.BuyAnimation();
         }
     }

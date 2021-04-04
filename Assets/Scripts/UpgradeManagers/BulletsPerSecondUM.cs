@@ -8,11 +8,11 @@ public class BulletsPerSecondUM : UpgradeManager
     {
         base.SetThisUpgrade();
 
-        fixed (int* i = &SavedValues.Instance.bulletsPerSecondUpgradeLevel)
+        fixed (int* i = &SaveManager.Instance.SavedValues.bulletsPerSecondUpgradeLevel)
         SetThisUpgrade(i,
                 GameConfigContainer.gameConfig.bulletsPerSecond,
                 CannonManager.Cannon.CannonSettings.bulletsPerSecondMultiplyer * BackgroundManager.Background.backgroundSettings.bulletsPerSecondMultiplyer,
                 Progression.GetBulletsPerSecondProgression(),
-                Progression.GetStatUpgradeCostProgression(SavedValues.Instance.BulletsPerSecondUpgradeLevel));
+                Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.BulletsPerSecondUpgradeLevel));
     }
 }

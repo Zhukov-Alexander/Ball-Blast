@@ -208,7 +208,7 @@ public class Cannon : MonoBehaviour
     void SetBullletDamage()
     {
         float multiplyer = CannonSettings.bulletsDamageMultiplyer * BackgroundManager.Background.backgroundSettings.bulletsDamageMultiplyer;
-        Damage = gameConfig.bulletDamage * multiplyer * Progression.GetStatAmountProgression(SavedValues.Instance.BulletDamageUpgradeLevel);
+        Damage = gameConfig.bulletDamage * multiplyer * Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.BulletDamageUpgradeLevel);
     }
 
     void SetMoveForce()
@@ -225,13 +225,13 @@ public class Cannon : MonoBehaviour
     void SetHealth()
     {
         float multiplyer = CannonSettings.healthMultiplyer * BackgroundManager.Background.backgroundSettings.healthMultiplyer;
-        MaximumHealth = gameConfig.health * multiplyer * Progression.GetStatAmountProgression(SavedValues.Instance.CannonHealthUpgradeLevel);
+        MaximumHealth = gameConfig.health * multiplyer * Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.CannonHealthUpgradeLevel);
         CurrentHealth = MaximumHealth;
     }
     void SetArmor()
     {
         float multiplyer = CannonSettings.armorMultiplyer * BackgroundManager.Background.backgroundSettings.armorMultiplyer;
-        Armor = gameConfig.armor * multiplyer * Progression.GetStatAmountProgression(SavedValues.Instance.CannonArmorUpgradeLevel);
+        Armor = gameConfig.armor * multiplyer * Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.CannonArmorUpgradeLevel);
     }
 
     void Move(Vector2 direction)

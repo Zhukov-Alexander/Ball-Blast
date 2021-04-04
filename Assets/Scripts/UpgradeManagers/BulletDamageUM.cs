@@ -8,11 +8,11 @@ public class BulletDamageUM : UpgradeManager
     {
         base.SetThisUpgrade();
 
-        fixed (int* i = &SavedValues.Instance.bulletDamageUpgradeLevel)
+        fixed (int* i = &SaveManager.Instance.SavedValues.bulletDamageUpgradeLevel)
         SetThisUpgrade(i,
                 GameConfigContainer.gameConfig.bulletDamage,
                 CannonManager.Cannon.CannonSettings.bulletsDamageMultiplyer * BackgroundManager.Background.backgroundSettings.bulletsDamageMultiplyer,
-                Progression.GetStatAmountProgression(SavedValues.Instance.BulletDamageUpgradeLevel),
-                Progression.GetStatUpgradeCostProgression(SavedValues.Instance.BulletDamageUpgradeLevel));
+                Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.BulletDamageUpgradeLevel),
+                Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.BulletDamageUpgradeLevel));
     }
 }

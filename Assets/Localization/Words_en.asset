@@ -175,6 +175,22 @@ MonoBehaviour:
     m_Localized: Defeat!
     m_Metadata:
       m_Items: []
+  - m_Id: 1832149998489600
+    m_Localized: Cannoneer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1832429632737280
+    m_Localized: shooting time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2848844271702016
+    m_Localized: The game is good. Check it out!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2850622543351808
+    m_Localized: 'Cannoneer: Shooting Time'
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

@@ -33,7 +33,7 @@ public class LastChanceMenu : MonoBehaviour
     }
     public void TakeChanceStone()
     {
-        SavedValues.Instance.Diamonds -= chanceCost;
+        SaveManager.Instance.SavedValues.Diamonds -= chanceCost;
         isTaken = true;
         OnLastChanceTaken();
         HideLastChanceMenu();
@@ -53,7 +53,7 @@ public class LastChanceMenu : MonoBehaviour
 
     private void ShowLastChanceMenu()
     {
-        if (isTaken || (SavedValues.Instance.Diamonds < chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
+        if (isTaken || (SaveManager.Instance.SavedValues.Diamonds < chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
         {
             isTaken = false;
             if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
@@ -69,7 +69,7 @@ public class LastChanceMenu : MonoBehaviour
             SoundManager.Instance.Heartbeat();
             SoundManager.Instance.slow.TransitionTo(0.5f);
             UIAnimation.Open(gameObject).Play();
-            if (SavedValues.Instance.Diamonds >= chanceCost)
+            if (SaveManager.Instance.SavedValues.Diamonds >= chanceCost)
             {
                 takeChanceStone.SetActive(true);
             }

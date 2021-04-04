@@ -74,11 +74,11 @@ public class SceneMenuManager : MonoBehaviour
 
     void ChooseCannon()
     {
-        SavedValues.Instance.ScenePrefabNumber = activeCannonScrollView.Background.PrefabNumber;
+        SaveManager.Instance.SavedValues.ScenePrefabNumber = activeCannonScrollView.Background.PrefabNumber;
     }
     void SetUnlockedCannonsText()
     {
-        unlockedCannonsText.text = SavedValues.Instance.OpendBackgroundsPrefabIndexes.Count + "/" + gameConfig.backgrounds.Count;
+        unlockedCannonsText.text = SaveManager.Instance.SavedValues.OpendBackgroundsPrefabIndexes.Count + "/" + gameConfig.backgrounds.Count;
     }
 
     void AddCannonScrollViews()
@@ -99,7 +99,7 @@ public class SceneMenuManager : MonoBehaviour
         slider.SetSlider(activeCannonScrollViews.Count, index);
         //SetCannonName();
         SetCannonStats();
-        if (SavedValues.Instance.OpendBackgroundsPrefabIndexes.Contains(activeCannonScrollView.Background.PrefabNumber))
+        if (SaveManager.Instance.SavedValues.OpendBackgroundsPrefabIndexes.Contains(activeCannonScrollView.Background.PrefabNumber))
         {
             chooseButtonBtn.gameObject.SetActive(true);
             openButtonBtn.gameObject.SetActive(false);
@@ -128,7 +128,7 @@ public class SceneMenuManager : MonoBehaviour
 
         void SetOpenButton()
         {
-            if (SavedValues.Instance.BossfightLevel > activeCannonScrollView.Background.PrefabNumber)
+            if (SaveManager.Instance.SavedValues.BossfightLevel > activeCannonScrollView.Background.PrefabNumber)
             {
                 openButtonBtn.onClick.RemoveAllListeners();
                 openButtonBtn.onClick.AddListener(Open);
@@ -143,7 +143,7 @@ public class SceneMenuManager : MonoBehaviour
 
             void Open()
             {
-                SavedValues.Instance.OpendBackgroundsPrefabIndexes.Add(activeCannonScrollView.Background.PrefabNumber);
+                SaveManager.Instance.SavedValues.OpendBackgroundsPrefabIndexes.Add(activeCannonScrollView.Background.PrefabNumber);
                 activeCannonScrollView.BuyAnimation();
             }
         }

@@ -25,9 +25,9 @@ public class CannonManager : MonoBehaviour
     }
     void InstantiateCannon()
     {
-        GameObject cannonGO = Instantiate(gameConfig.cannonPrefabs[SavedValues.Instance.CannonPrefabNumber], gameConfig.cannonInstantiatePosition, Quaternion.identity);
+        GameObject cannonGO = Instantiate(gameConfig.cannonPrefabs[SaveManager.Instance.SavedValues.CannonPrefabNumber], gameConfig.cannonInstantiatePosition, Quaternion.identity);
         Cannon = cannonGO.GetComponent<Cannon>();
-        Cannon.PrefabNumber = SavedValues.Instance.CannonPrefabNumber;
+        Cannon.PrefabNumber = SaveManager.Instance.SavedValues.CannonPrefabNumber;
         Cannon.UpdateProperties();
         //OnCannonInstantiated();
     }

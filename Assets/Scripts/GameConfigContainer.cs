@@ -13,12 +13,12 @@ public class GameConfigContainer : MonoBehaviour
     [ContextMenu("DeleteSave")]
     public void DeleteSave()
     {
-        SavedValues.DeleteSave();
+        SaveManager.Instance.DeleteLocalSave();
     }
     [ContextMenu("GetMoney")]
     public void GetMoney()
     {
-        SavedValues.Instance.Coins += Mathf.Pow(10,14);
-        SavedValues.Instance.Diamonds += 1000;
+        SaveManager.Instance.SavedValues.Coins += Mathf.Pow(10,14);
+        SaveManager.Instance.SavedValues.Diamonds += 1000;
     }
 }

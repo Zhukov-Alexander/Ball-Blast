@@ -5,6 +5,23 @@ using UnityEngine;
 public static class SaveSystemBinary
 {
     private static readonly string path = Application.persistentDataPath + "\\savings";
+    public static byte[] SerializeState<T>(T objectToSave)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (MemoryStream ms = new MemoryStream())
+        {
+            formatter.Serialize(ms, objectToSave);
+            return ms.GetBuffer();
+        }
+    }
+    public static T DeserializeState<T>(byte[] data)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        using (MemoryStream ms = new MemoryStream(data))
+        {
+            return (T)formatter.Deserialize(ms);
+        }
+    }
 
     public static void Save<T>(T objectToSave, string key)
     {

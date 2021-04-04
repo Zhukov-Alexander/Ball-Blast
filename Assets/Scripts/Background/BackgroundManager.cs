@@ -25,7 +25,7 @@ public class BackgroundManager : MonoBehaviour
     }
     void InstantiateBackground()
     {
-        GameObject backgroundGO = Instantiate(gameConfig.backgrounds[SavedValues.Instance.ScenePrefabNumber], gameConfig.backgroundPrefabPosition, Quaternion.identity);
+        GameObject backgroundGO = Instantiate(gameConfig.backgrounds[SaveManager.Instance.SavedValues.ScenePrefabNumber], gameConfig.backgroundPrefabPosition, Quaternion.identity);
         Background = backgroundGO.GetComponent<Background>();
         Background.UpdateProperties();
         //OnBackgroundInstantiated();

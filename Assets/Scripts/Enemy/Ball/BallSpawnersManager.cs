@@ -92,12 +92,12 @@ public class BallSpawnersManager : MonoBehaviour
         moves.ForEach(a => f += a.lives * HelperClass.TreeOfPow(2, a.type));
         totalLevelLives = f;
 
-        string v = "";
+        /*string v = "";
         foreach (var item in moves)
         {
             v += "type: " + item.type + " lives: " + item.lives + " spawner: " + item.spawner + " waiting: " + item.waiting + Environment.NewLine;
         }
-        Debug.Log(v);
+        Debug.Log(v);*/
         return moves;
     }
 }

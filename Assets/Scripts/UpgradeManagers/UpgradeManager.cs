@@ -81,7 +81,7 @@ public abstract class UpgradeManager : MonoBehaviour
             upgradeButton.onClick.AddListener(() => SoundManager.Instance.Bonus());
             upgradeButton.onClick.AddListener(Upgrade);
 
-            if (SavedValues.Instance.Coins >= upgradeCost)
+            if (SaveManager.Instance.SavedValues.Coins >= upgradeCost)
             {
                 upgradeForeground.color = gameConfig.activeUpgradeColor;
             }
@@ -92,11 +92,11 @@ public abstract class UpgradeManager : MonoBehaviour
 
             void Upgrade()
             {
-                if (SavedValues.Instance.Coins >= upgradeCost)
+                if (SaveManager.Instance.SavedValues.Coins >= upgradeCost)
                 {
-                    SavedValues.Instance.Coins -= upgradeCost;
+                    SaveManager.Instance.SavedValues.Coins -= upgradeCost;
                     *statLevel += 1;
-                    SavedValues.Save();
+                    SaveManager.Instance.SaveLocal();
                     OnUpgrade();
                     SetThisUpgrade();
                 }

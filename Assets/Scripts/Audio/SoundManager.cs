@@ -20,7 +20,7 @@ public class SoundManager : Singleton<SoundManager>
     }
     private void FixedUpdate()
     {
-        if(vibrate && SavedValues.Instance.Vibration)
+        if(vibrate && SaveManager.Instance.SavedValues.Vibration)
             Handheld.Vibrate();
     }
     public void Vibrate(float time = 0.3f)

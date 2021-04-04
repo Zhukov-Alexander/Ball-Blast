@@ -21,8 +21,8 @@ public class CurrencyManager : MonoBehaviour
         Ball.OnDestroy += SpawnCoinsCampain;
         Boss.OnDestroy += SpawnCoinsBossfight;
         Boss.OnDestroy += (a,b) => SpawnDiamonds(b);
-        SavedValues.Instance.OnCoinsChanged += SetCoins;
-        SavedValues.Instance.OnDiamondsChanged += SetDiamonds;
+        SaveManager.Instance.OnLoaded += () => SaveManager.Instance.SavedValues.OnCoinsChanged += SetCoins;
+        SaveManager.Instance.OnLoaded += () => SaveManager.Instance.SavedValues.OnDiamondsChanged += SetDiamonds;
     }
 
     private void CollectCurrency()
@@ -63,17 +63,17 @@ public class CurrencyManager : MonoBehaviour
         {
             GameObject diamondGO = Instantiate(gameConfig.diamondPrefab, position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
             Diamond diamond = diamondGO.GetComponent<Diamond>();
-            diamond.Weight = SavedValues.Instance.BossfightLevel;
+            diamond.Weight = SaveManager.Instance.SavedValues.BossfightLevel;
         }
     }
     public void SetCoins()
     {
-        coinsTMP.text = SavedValues.Instance.Coins.NumberToTextInOneLineWithoutFraction();
+        coinsTMP.text = SaveManager.Instance.SavedValues.Coins.NumberToTextInOneLineWithoutFraction();
         
     }
     public void SetDiamonds()
     {
-        diamondsTMP.text = SavedValues.Instance.Diamonds.NumberToTextInOneLineWithoutFraction();
+        diamondsTMP.text = SaveManager.Instance.SavedValues.Diamonds.NumberToTextInOneLineWithoutFraction();
     }
 
 

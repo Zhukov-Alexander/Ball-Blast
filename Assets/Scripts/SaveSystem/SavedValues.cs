@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
-public class SavedValues : Savable<SavedValues>
+public class SavedValues
 {
     private bool sound = true;
     private bool vibration = true;
@@ -26,22 +26,22 @@ public class SavedValues : Savable<SavedValues>
     [NonSerialized] public Action OnCoinsChanged;
     [NonSerialized] public Action OnDiamondsChanged;
 
-    public bool Sound { get => sound; set { sound = value; Save();} }
-    public bool Vibration { get => vibration; set { vibration = value; Save();} }
-    public int BulletsPerSecondUpgradeLevel { get => bulletsPerSecondUpgradeLevel; set { bulletsPerSecondUpgradeLevel = value; Save(); } }
-    public int BulletDamageUpgradeLevel { get => bulletDamageUpgradeLevel; set { bulletDamageUpgradeLevel = value; Save(); } }
-    public int CannonMoveForceUpgradeLevel { get => cannonSpeedUpgradeLevel; set { cannonSpeedUpgradeLevel = value; Save(); } }
-    public int BonusProbabilityUpgradeLevel { get => bonusDropProbabilityUpgradeLevel; set { bonusDropProbabilityUpgradeLevel = value; Save(); } }
-    public int CannonHealthUpgradeLevel { get => cannonLivesUpgradeLevel; set { cannonLivesUpgradeLevel = value; Save(); } }
-    public int CannonArmorUpgradeLevel { get => cannonArmorUpgradeLevel; set { cannonArmorUpgradeLevel = value; Save(); } }
-    public int CannonPrefabNumber { get => cannonPrefabNumber; set { cannonPrefabNumber = value; Save(); } }
-    public int ScenePrefabNumber { get => backgroundPrefabNumber; set { backgroundPrefabNumber = value; Save(); } }
-    public float Coins { get => coins; set { coins = value; Save(); OnCoinsChanged?.Invoke(); } }
+    public bool Sound { get => sound; set { sound = value; SaveManager.Instance.SaveLocal();} }
+    public bool Vibration { get => vibration; set { vibration = value; SaveManager.Instance.SaveLocal();} }
+    public int BulletsPerSecondUpgradeLevel { get => bulletsPerSecondUpgradeLevel; set { bulletsPerSecondUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int BulletDamageUpgradeLevel { get => bulletDamageUpgradeLevel; set { bulletDamageUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int CannonMoveForceUpgradeLevel { get => cannonSpeedUpgradeLevel; set { cannonSpeedUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int BonusProbabilityUpgradeLevel { get => bonusDropProbabilityUpgradeLevel; set { bonusDropProbabilityUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int CannonHealthUpgradeLevel { get => cannonLivesUpgradeLevel; set { cannonLivesUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int CannonArmorUpgradeLevel { get => cannonArmorUpgradeLevel; set { cannonArmorUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int CannonPrefabNumber { get => cannonPrefabNumber; set { cannonPrefabNumber = value; SaveManager.Instance.SaveLocal(); } }
+    public int ScenePrefabNumber { get => backgroundPrefabNumber; set { backgroundPrefabNumber = value; SaveManager.Instance.SaveLocal(); } }
+    public float Coins { get => coins; set { coins = value; SaveManager.Instance.SaveLocal(); OnCoinsChanged?.Invoke(); } }
 
-    public List<int> OpendCannonsPrefabIndexes { get => opendCannonsPrefabIndexes; set { opendCannonsPrefabIndexes = value; Save(); } }
-    public List<int> OpendBackgroundsPrefabIndexes { get => opendBackgroundsPrefabIndexes; set { opendBackgroundsPrefabIndexes = value; Save(); } }
+    public List<int> OpendCannonsPrefabIndexes { get => opendCannonsPrefabIndexes; set { opendCannonsPrefabIndexes = value; SaveManager.Instance.SaveLocal(); } }
+    public List<int> OpendBackgroundsPrefabIndexes { get => opendBackgroundsPrefabIndexes; set { opendBackgroundsPrefabIndexes = value; SaveManager.Instance.SaveLocal(); } }
 
-    public float Diamonds { get => diamonds; set { diamonds = value; Save(); OnDiamondsChanged?.Invoke(); } }
-    public int CampainLevel { get => campainLevel; set { campainLevel = value; Save(); } }
-    public int BossfightLevel { get => bossfightLevel; set { bossfightLevel = value; Save(); } }
+    public float Diamonds { get => diamonds; set { diamonds = value; SaveManager.Instance.SaveLocal(); OnDiamondsChanged?.Invoke(); } }
+    public int CampainLevel { get => campainLevel; set { campainLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public int BossfightLevel { get => bossfightLevel; set { bossfightLevel = value; SaveManager.Instance.SaveLocal(); } }
 }

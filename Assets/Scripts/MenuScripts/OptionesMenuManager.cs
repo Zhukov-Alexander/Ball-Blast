@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization;
 
 public class OptionesMenuManager : MonoBehaviour
 {
+    [SerializeField] LocalizedString textLS;
+    [SerializeField] LocalizedString titleLS;
+    [SerializeField] LocalizedString localizedString;
+    [SerializeField] TextMeshProUGUI accountTMP;
     public static Action OnExit;
     public static Action OnEnter;
     public GameObject soundProhibitIcon;
@@ -25,7 +33,7 @@ public class OptionesMenuManager : MonoBehaviour
     }
     public static void UpdateState()
     {
-        if (SavedValues.Instance.Sound)
+        if (SaveManager.Instance.SavedValues.Sound)
         {
             SoundManager.Instance.SetMaster(0);
         }
@@ -33,7 +41,7 @@ public class OptionesMenuManager : MonoBehaviour
         {
             SoundManager.Instance.SetMaster(-80);
         }
-        if (SavedValues.Instance.Vibration)
+        if (SaveManager.Instance.SavedValues.Vibration)
         {
         }
         else
@@ -42,7 +50,7 @@ public class OptionesMenuManager : MonoBehaviour
     }
     public void UpdateButtons()
     {
-        if (SavedValues.Instance.Sound)
+        if (SaveManager.Instance.SavedValues.Sound)
         {
             soundProhibitIcon.SetActive(false);
         }
@@ -50,7 +58,7 @@ public class OptionesMenuManager : MonoBehaviour
         {
             soundProhibitIcon.SetActive(true);
         }
-        if (SavedValues.Instance.Vibration)
+        if (SaveManager.Instance.SavedValues.Vibration)
         {
             vibrationProhibitIcon.SetActive(false);
         }
@@ -61,13 +69,13 @@ public class OptionesMenuManager : MonoBehaviour
     }
     public void Sound()
     {
-        SavedValues.Instance.Sound = SavedValues.Instance.Sound == true ? SavedValues.Instance.Sound = false :  SavedValues.Instance.Sound = true;
+        SaveManager.Instance.SavedValues.Sound = SaveManager.Instance.SavedValues.Sound == true ? SaveManager.Instance.SavedValues.Sound = false :  SaveManager.Instance.SavedValues.Sound = true;
         UpdateState();
         UpdateButtons();
     }
     public void Vibration()
     {
-        SavedValues.Instance.Vibration = SavedValues.Instance.Vibration == true ? SavedValues.Instance.Vibration = false : SavedValues.Instance.Vibration = true;
+        SaveManager.Instance.SavedValues.Vibration = SaveManager.Instance.SavedValues.Vibration == true ? SaveManager.Instance.SavedValues.Vibration = false : SaveManager.Instance.SavedValues.Vibration = true;
         UpdateState();
         UpdateButtons();
     }
@@ -77,14 +85,53 @@ public class OptionesMenuManager : MonoBehaviour
     }
     public void Account()
     {
-
+        IAccount();
+    }
+    void IAccount()
+    {
+        if (SocialManager.Instance.isConnectedToGooglePlayServices)
+        {
+            SaveManager.Instance.SaveCloud();
+            SocialManager.Instance.SignOut();
+            StartCoroutine(SetLocalizedString(accountTMP));
+        }
+        else
+        {
+            SocialManager.Instance.SignIn(SignInInteractivity.CanPromptAlways, (result) =>
+            { 
+                if(result == SignInStatus.Success)
+                {
+                    accountTMP.text = Social.localUser.userName;
+                }
+                else
+                {
+                    StartCoroutine(SetLocalizedString(accountTMP));
+                }
+            });
+        }
+    }
+    IEnumerator SetLocalizedString(TextMeshProUGUI textMeshProUGUI)
+    {
+        var lsa = localizedString.GetLocalizedString();
+        yield return lsa;
+        textMeshProUGUI.text = lsa.Result;
     }
     public void RateUs()
     {
-
+        StartCoroutine(HelperClass.CheckInternetConnection((a) => { if (a) Application.OpenURL("market://details?id=" + Application.identifier); }));
     }
     public void Share()
     {
-
+        StartCoroutine(HelperClass.CheckInternetConnection((a) => {
+            if (a) StartCoroutine(CShare());
+        }));
+        IEnumerator CShare()
+        {
+            var lsaS = titleLS.GetLocalizedString();
+            var lsaT = textLS.GetLocalizedString();
+            yield return lsaS;
+            if(!lsaT.IsDone) yield return lsaT;
+            new NativeShare().SetSubject(lsaS.Result).SetText(lsaT.Result).SetUrl("market://details?id=" + Application.identifier);
+        }
     }
 }
