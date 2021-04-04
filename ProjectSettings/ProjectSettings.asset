@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2
+  bundleVersion: 0.3
   preloadedAssets:
   - {fileID: 11400000, guid: 85e21c599ee3c984f8fba0e98c2d60db, type: 2}
   metroInputSource: 0
@@ -166,9 +166,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.MindFrameDevelopment.CANNONEERshootingtime
+    Android: com.MindFrameDevelopment.CannoneerShootingTime
   buildNumber: {}
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 1
@@ -245,7 +245,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Unity GE/UnityKeystore.keystore
+  AndroidKeystoreName: C:/UnityGE/UnityKeystore.keystore
   AndroidKeyaliasName: 'cannoneer: shooting time'
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
