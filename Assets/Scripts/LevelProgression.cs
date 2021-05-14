@@ -8,8 +8,8 @@ using static GameConfigContainer;
 public class LevelProgression : MonoBehaviour
 {
     [SerializeField] LevelSlider levelProgressionSlider;
-    public static float currentPoints;
-    public static float maxPoints;
+    public static double currentPoints;
+    public static double maxPoints;
     Sequence sequence;
     bool locked;
 
@@ -33,9 +33,9 @@ public class LevelProgression : MonoBehaviour
         levelProgressionSlider.SetBossfightIcon();
         levelProgressionSlider.SetSlider(maxPoints, currentPoints);
     }
-    public void ChangePointsBall(float points)
+    public void ChangePointsBall(double points)
     {
-        sequence.Append(levelProgressionSlider.TweenSlider(maxPoints, currentPoints, currentPoints + points, points / maxPoints * 5f));
+        sequence.Append(levelProgressionSlider.TweenSlider(maxPoints, currentPoints, currentPoints + points, (float)(points / maxPoints) * 5f));
         currentPoints += points;
         if ((currentPoints > maxPoints || HelperClass.NearlyEqual(currentPoints, maxPoints, maxPoints * gameConfig.epsilon)) && !locked)
         {
@@ -44,9 +44,9 @@ public class LevelProgression : MonoBehaviour
             LevelMenu.OnEndCampainWin();
         }
     }
-    public void ChangePointsBoss(float points)
+    public void ChangePointsBoss(double points)
     {
-        sequence.Append(levelProgressionSlider.TweenSlider(maxPoints, currentPoints, currentPoints - points, points / maxPoints * 5f));
+        sequence.Append(levelProgressionSlider.TweenSlider(maxPoints, currentPoints, currentPoints - points, (float)(points / maxPoints) * 5f));
         currentPoints -= points;
         if ((currentPoints < 0 || HelperClass.NearlyEqual(currentPoints, 0, maxPoints * gameConfig.epsilon)) && !locked)
         {

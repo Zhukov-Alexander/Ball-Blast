@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7701085855970009730}
   m_Layer: 10
   m_Name: Drum Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,6 +64,8 @@ MonoBehaviour:
   chillProportionStart: 0
   chillProportion: 0.4
   centerOfMassYChange: -0.4
+  volume: 1
+  pitch: -0.5
 --- !u!50 &8060106756051057430
 Rigidbody2D:
   serializedVersion: 4

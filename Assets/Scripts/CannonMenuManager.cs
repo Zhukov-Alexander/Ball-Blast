@@ -90,7 +90,7 @@ public class CannonMenuManager : MonoBehaviour
 
     void SetActiveScrollView(CannonScrollViewItem activeCannonScrollView)
     {
-        SoundManager.Instance.Gun(0.4f);
+        SoundManager.Instance.Button(0.3f);
         this.activeCannonScrollView = activeCannonScrollView;
         index = activeCannonScrollViews.IndexOf(activeCannonScrollView);
         slider.SetSlider(activeCannonScrollViews.Count, index);
@@ -111,7 +111,7 @@ public class CannonMenuManager : MonoBehaviour
         void SetBuyButton()
         {
             int cost = gameConfig.baseCannonCost * SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Count;
-            cannonCost.text = cost.NumberToTextInOneLineWithoutFraction();
+            cannonCost.text = cost.NumberToTextInOneLine();
             if (SaveManager.Instance.SavedValues.Diamonds >= cost)
             {
                 buyButtonBtn.onClick.RemoveAllListeners();
@@ -130,6 +130,7 @@ public class CannonMenuManager : MonoBehaviour
             {
                 SaveManager.Instance.SavedValues.Diamonds -= cost;
                 SaveManager.Instance.SavedValues.OpendCannonsPrefabIndexes.Add(activeCannonScrollView.Cannon.PrefabNumber);
+                SoundManager.Instance.Bonus();
                 activeCannonScrollView.BuyAnimation();
         }
     }

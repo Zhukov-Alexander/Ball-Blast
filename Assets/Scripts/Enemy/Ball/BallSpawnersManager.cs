@@ -8,8 +8,8 @@ using static GameConfigContainer;
 public class BallSpawnersManager : MonoBehaviour
 {
     [SerializeField] List<BallSpawner> ballSpawners;
-    public static float totalLevelLives;
-    public static float mediumBallLives;
+    public static double totalLevelLives;
+    public static double mediumBallLives;
     List<BallSpawnSettings> ballSpawnSettings;
 
     public static Action OnLevelCalculated { get; set; }
@@ -22,11 +22,12 @@ public class BallSpawnersManager : MonoBehaviour
         LevelMenu.OnEndCampainLose += (EndShooting);
         LevelMenu.OnEndCampainWin += (EndShooting);
         LevelMenu.AddToEnd(DestroyBalls);
+        LastChanceMenu.OnLastChanceTaken += RestartShootingFromCurrentState;
     }
 
     private void CalculateLevel()
     {
-        float levelLives = gameConfig.levelLifePerSec * gameConfig.levelDuration * Progression.GetCampainProgression();
+        double levelLives = gameConfig.levelLifePerSec * gameConfig.levelDuration * Progression.GetCampainProgression();
         ballSpawnSettings = CalculateBallSpawnSettings(levelLives, gameConfig.levelDuration);
         OnLevelCalculated();
     }
@@ -35,29 +36,39 @@ public class BallSpawnersManager : MonoBehaviour
     {
         foreach (var v in FindObjectsOfType<Ball>().ToList())
         {
-            Destroy(v.gameObject);
+            v.Destruction(false);
         }
     }
     void StartShooting()
     {
-        shooting = ShootingBalls();
+        shooting = ShootingBalls(ballSpawnSettings.Count);
         StartCoroutine(shooting);
     }
     void EndShooting()
     {
         StopCoroutine(shooting);
     }
-
-    IEnumerator ShootingBalls()
+    void RestartShootingFromCurrentState()
     {
-        for (int i = 0; i < ballSpawnSettings.Count; i++)
+        EndShooting();
+        List<Ball> balls = FindObjectsOfType<Ball>().OrderBy(a => a.Number).ToList();
+        balls.ForEach(a => a.ballSpawnSettings = new BallSpawnSettings(a.ballSpawnSettings.type, a.CurrentLives, a.ballSpawnSettings.spawner, a.ballSpawnSettings.waiting));
+        List<BallSpawnSettings> settings = balls.Select(a => a.ballSpawnSettings).ToList();
+        ballSpawnSettings.InsertRange(0, settings);
+        DestroyBalls();
+        StartShooting();
+    }
+    IEnumerator ShootingBalls(int count)
+    {
+        for (int i = 0; i < count; i++)
         {
-            BallSpawnSettings move = ballSpawnSettings[i];
-            ballSpawners[move.spawner].Shoot(move.lives, move.type, i);
+            BallSpawnSettings move = ballSpawnSettings[0];
+            ballSpawnSettings.RemoveAt(0);
+            ballSpawners[move.spawner].Shoot(move, i);
             yield return new WaitForSeconds(move.waiting);
         }
     }
-    List<BallSpawnSettings> CalculateBallSpawnSettings(float levelLives, float levelDuration)
+    List<BallSpawnSettings> CalculateBallSpawnSettings(double levelLives, float levelDuration)
     {
         List<BallSpawnSettings> moves = new List<BallSpawnSettings>();
 
@@ -68,15 +79,13 @@ public class BallSpawnersManager : MonoBehaviour
 
 
 
-        float insideLevelDifficultyProgression; 
-        List<float> ballsLives = new List<float>();
-        insideLevelDifficultyProgression = gameConfig.insideCampainDifficultyProgressionPerSec * levelDuration;
+        List<double> ballsLives = new List<double>();
+        float insideLevelDifficultyProgression = gameConfig.insideCampainDifficultyProgressionPerSec * levelDuration;
         ballsLives = HelperClass.GetListWithLinearlyIncreasingValuesBasedOnTotalValue(levelLives, shots, insideLevelDifficultyProgression);
 
-        List<float> ballsLivesMixed = HelperClass.MixValues(ballsLives, gameConfig.amountOfBallsToMixSimultaneosly, gameConfig.ballsMixCoef, gameConfig.ballMixCycles);
+        List<double> ballsLivesMixed = HelperClass.MixValues(ballsLives, gameConfig.amountOfBallsToMixSimultaneosly, gameConfig.ballsMixCoef, gameConfig.ballMixCycles);
 
-        //Debug.Log("ballsLivesMixed " + ballsLivesMixed.Count + "/ sizes " + sizes.Count);
-        List<float> ballsLivesResized = HelperClass.GetListWithAveragedValues(ballsLivesMixed, sizes, out float averageValue);
+        List<double> ballsLivesResized = HelperClass.GetListWithAveragedValues(ballsLivesMixed, sizes, out double averageValue);
         mediumBallLives = averageValue;
 
         List<float> waitings = HelperClass.GetListWithEqualValues(levelDuration, sizes.Count, out float averageTimeBenweenShots);
@@ -88,7 +97,7 @@ public class BallSpawnersManager : MonoBehaviour
         {
             moves.Add(new BallSpawnSettings(sizes[i], ballsLivesResized[i], spawners[i], waitingsMixed[i]));
         }
-        float f = 0;
+        double f = 0;
         moves.ForEach(a => f += a.lives * HelperClass.TreeOfPow(2, a.type));
         totalLevelLives = f;
 
@@ -104,10 +113,10 @@ public class BallSpawnersManager : MonoBehaviour
 public class BallSpawnSettings
 {
     public int type;
-    public float lives;
+    public double lives;
     public int spawner;
     public float waiting;
-    public BallSpawnSettings(int type, float life, int spawner, float waiting)
+    public BallSpawnSettings(int type, double life, int spawner, float waiting)
     {
         this.type = type;
         this.lives = life;

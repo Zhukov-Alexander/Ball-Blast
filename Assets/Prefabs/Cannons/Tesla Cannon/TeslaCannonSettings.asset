@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannonName: Tesla
   bulletsDamageMultiplyer: 2.4
-  cannonMoveForceMultiplyer: 0.9
-  bonusProbabilityMultiplyer: 0.7
-  bulletsPerSecondMultiplyer: 0.4
+  cannonMoveForceMultiplyer: 0.8
+  bonusProbabilityMultiplyer: 0.5
+  bulletsPerSecondMultiplyer: 0.5
   healthMultiplyer: 1
   armorMultiplyer: 1.3

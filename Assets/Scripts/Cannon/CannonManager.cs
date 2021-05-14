@@ -13,6 +13,7 @@ public class CannonManager : MonoBehaviour
     {
         CannonMenuManager.OnExit += UpdateCannon;
         SceneMenuManager.OnExit += UpdateCannon;
+        OptionesMenuManager.OnExit += UpdateCannon;
         StartMenu.OnFirstEnter += UpdateCannon;
     }
     void UpdateCannon()

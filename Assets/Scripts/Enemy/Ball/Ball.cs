@@ -12,15 +12,17 @@ using DG.Tweening;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] GameObject DeathAnimGO;
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
     [SerializeField] SpriteRenderer spriteRenderer;
-    private float currentLives;
+    private double currentLives;
     private new Rigidbody2D rigidbody2D;
-    public static Action<float,Vector2> OnDestroy { get; set; }
-    public static Action<float> OnTakeDamage { get; set; }
+    public static Action<double, Vector2> OnDestroy { get; set; }
+    public static Action<double> OnTakeDamage { get; set; }
 
-    public float InitialLives { get; set; }
-    public float CurrentLives
+    public BallSpawnSettings ballSpawnSettings;
+    public double InitialLives { get; set; }
+    public double CurrentLives
     {
         get => currentLives; set
         {
@@ -36,10 +38,10 @@ public class Ball : MonoBehaviour
             }
         }
     }
+
+    public int Number { get; set; }
     int type;
-    int number;
     Tween tween;
-    Vector3 scale;
     private int count;
 
     private void Awake()
@@ -57,30 +59,20 @@ public class Ball : MonoBehaviour
             rigidbody2D.angularDrag = gameConfig.baseBallAngularDrag + (rigidbody2D.angularVelocity - gameConfig.maxBallAngularVelocity) * gameConfig.ballAngularDragCoef;
         }
     }
-    public void Constructor(float life, int type, int number, bool child = false)
+    public void Constructor(BallSpawnSettings ballSpawnSettings, int number, bool child = false)
     {
-        scale = gameObject.transform.localScale;
+        this.ballSpawnSettings = ballSpawnSettings;
         tween = DOTween.Sequence();
-        SetBallType(type);
+        SetBallType(ballSpawnSettings.type);
         SetLayerOrder(number);
-        SetBallLife(life);
+        SetBallLife(ballSpawnSettings.lives);
         SetBallColour();
-        //SetBallSize();
         if (child) GetComponent<Collider2D>().isTrigger = false;
     }
 
-    /*private void SetBallSize()
-    {
-        float lifeMultiplyer = CurrentLives / (mediumBallLives * 2);
-        if (lifeMultiplyer > 1) lifeMultiplyer = 1;
-        float scale = gameConfig.minBallScale + (gameConfig.maxBallScale - gameConfig.minBallScale) * lifeMultiplyer;
-        DOTween.Complete(gameObject);
-        gameObject.transform.DOScale(new Vector3(scale, scale, scale), gameConfig.timeToDownScaleEnemy).SetEase(gameConfig.ScaleEnemyAnimationCurve);
-    }*/
-
     private void SetLayerOrder(int number)
     {
-        this.number = number;
+        this.Number = number;
         int layerOrder = number * (type+1);
         GetComponentsInChildren<Renderer>().ToList().ForEach(a => a.sortingOrder = layerOrder);
         GetComponentsInChildren<Canvas>().ToList().ForEach(a => a.sortingOrder = layerOrder);
@@ -93,12 +85,12 @@ public class Ball : MonoBehaviour
 
     private void SetBallColour()
     {
-        float value = CurrentLives / (mediumBallLives * 1.1f);
+        float value = (float)(CurrentLives / (mediumBallLives * 1.1f));
         Color color = gameConfig.ballColorGradient.Evaluate(value);
         spriteRenderer.color = color;
         return;
     }
-    private void SetBallLife(float life)
+    private void SetBallLife(double life)
     {
         InitialLives = life;
         CurrentLives = life;
@@ -112,7 +104,7 @@ public class Ball : MonoBehaviour
             textMeshProUGUI.text = "";
             return;
         }
-        textMeshProUGUI.text = NumberHandler.NumberToTextInOneLineWithoutFraction(CurrentLives);
+        textMeshProUGUI.text = NumberHandler.NumberToTextInOneLine(CurrentLives);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -129,10 +121,6 @@ public class Ball : MonoBehaviour
             TakeDamage(CannonManager.Cannon.Damage);
         }
     }
-    private void OnParticleTrigger()
-    {
-        
-    }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 9 && 5 - rigidbody2D.velocity.y>0)
@@ -143,7 +131,7 @@ public class Ball : MonoBehaviour
         }
 
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(double damage)
     {
         if (damage > CurrentLives) damage = CurrentLives;
         if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
@@ -152,12 +140,18 @@ public class Ball : MonoBehaviour
         }
         CurrentLives -= damage;
         UpdateLifeText();
-        //tween.Complete();
-        //transform.localScale = scale;
-        tween.Kill();
-        tween = DOTween.To(a => gameObject.transform.localScale = scale * gameConfig.ScaleEnemyAnimationCurve.Evaluate(a), 0, 1, gameConfig.timeToDownScaleEnemy);
+        Vibrate();
         SetBallColour();
     }
+
+    private void Vibrate()
+    {
+        tween.Complete();
+        Vector3 scale = gameObject.transform.localScale;
+        tween = DOTween.To(a => gameObject.transform.localScale = scale * gameConfig.ScaleEnemyAnimationCurve.Evaluate(a), 0, 1, gameConfig.timeToDownScaleEnemy)
+            .OnComplete(() => gameObject.transform.localScale = scale);
+    }
+
     private void Shoot(int sign)
     {
         GameObject ballGO = CreateABall();
@@ -181,17 +175,16 @@ public class Ball : MonoBehaviour
         {
             GameObject ballGameObject = Instantiate(gameConfig.ballPrefabs[type-1], gameObject.transform.position, Quaternion.identity);
             Ball ball = ballGameObject.GetComponent<Ball>();
-            ball.Constructor(InitialLives, type - 1, number + count, true);
+            ball.Constructor(new BallSpawnSettings(ballSpawnSettings.type-1, ballSpawnSettings.lives, ballSpawnSettings.spawner, ballSpawnSettings.waiting), Number + count, true);
             count++;
             return ballGameObject;
         }
     }
-    public void Destruction()
+    public void Destruction(bool withCallback = true)
     {
+        if(withCallback) OnDestroy(InitialLives, transform.position);
         SoundManager.Instance.Bubble(0.5f);
-        OnDestroy(InitialLives, transform.position);
+        Instantiate(DeathAnimGO, transform.position, Quaternion.identity).transform.localScale = transform.localScale;
         Destroy(gameObject);
-        /*GetComponentsInChildren<Collider2D>().ToList().ForEach(a => a.enabled = false);
-        transform.DOScale(Vector3.zero, 0.2f).OnComplete(() => Destroy(gameObject)).SetEase(Ease.InBack);*/
     }
 }

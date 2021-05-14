@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: JackhammerCannonSettings
   m_EditorClassIdentifier: 
   cannonName: Jackhammer
-  bulletsDamageMultiplyer: 1.8
+  bulletsDamageMultiplyer: 1.6
   cannonMoveForceMultiplyer: 0.8
   bonusProbabilityMultiplyer: 0.8
   bulletsPerSecondMultiplyer: 0.4
-  healthMultiplyer: 1.6
-  armorMultiplyer: 1.3
+  healthMultiplyer: 1.5
+  armorMultiplyer: 1.5

@@ -11,7 +11,7 @@ public class CannonArmorUM : UpgradeManager
             SetThisUpgrade(i,
                 GameConfigContainer.gameConfig.armor,
                 CannonManager.Cannon.CannonSettings.armorMultiplyer * BackgroundManager.Background.backgroundSettings.armorMultiplyer,
-                Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.CannonArmorUpgradeLevel),
+                Progression.GetCannonArmorProgression(),
                 Progression.GetStatUpgradeCostProgression(SaveManager.Instance.SavedValues.CannonArmorUpgradeLevel));
     }
 

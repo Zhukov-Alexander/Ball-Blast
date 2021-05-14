@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [Serializable]
 public class SavedValues
@@ -16,12 +17,13 @@ public class SavedValues
     public int cannonArmorUpgradeLevel;
     private int cannonPrefabNumber;
     private int backgroundPrefabNumber;
-    private float coins;
-    private float diamonds;
+    private double coins;
+    private int diamonds;
     private int campainLevel = 1;
     private int bossfightLevel = 1;
     private List<int> opendCannonsPrefabIndexes = new List<int>() { 0 };
     private List<int> opendBackgroundsPrefabIndexes = new List<int>() { 0 };
+    string playtimeRewardTimeSpan;
 
     [NonSerialized] public Action OnCoinsChanged;
     [NonSerialized] public Action OnDiamondsChanged;
@@ -36,12 +38,29 @@ public class SavedValues
     public int CannonArmorUpgradeLevel { get => cannonArmorUpgradeLevel; set { cannonArmorUpgradeLevel = value; SaveManager.Instance.SaveLocal(); } }
     public int CannonPrefabNumber { get => cannonPrefabNumber; set { cannonPrefabNumber = value; SaveManager.Instance.SaveLocal(); } }
     public int ScenePrefabNumber { get => backgroundPrefabNumber; set { backgroundPrefabNumber = value; SaveManager.Instance.SaveLocal(); } }
-    public float Coins { get => coins; set { coins = value; SaveManager.Instance.SaveLocal(); OnCoinsChanged?.Invoke(); } }
+    public double Coins { get => coins; set { coins = value; SaveManager.Instance.SaveLocal(); OnCoinsChanged?.Invoke(); } }
 
     public List<int> OpendCannonsPrefabIndexes { get => opendCannonsPrefabIndexes; set { opendCannonsPrefabIndexes = value; SaveManager.Instance.SaveLocal(); } }
     public List<int> OpendBackgroundsPrefabIndexes { get => opendBackgroundsPrefabIndexes; set { opendBackgroundsPrefabIndexes = value; SaveManager.Instance.SaveLocal(); } }
 
-    public float Diamonds { get => diamonds; set { diamonds = value; SaveManager.Instance.SaveLocal(); OnDiamondsChanged?.Invoke(); } }
+    public int Diamonds { get => diamonds; set { diamonds = value; SaveManager.Instance.SaveLocal(); OnDiamondsChanged?.Invoke(); } }
     public int CampainLevel { get => campainLevel; set { campainLevel = value; SaveManager.Instance.SaveLocal(); } }
     public int BossfightLevel { get => bossfightLevel; set { bossfightLevel = value; SaveManager.Instance.SaveLocal(); } }
+    public TimeSpan PlaytimeRewardTimeSpan { 
+        get
+        {
+            if (playtimeRewardTimeSpan != null && playtimeRewardTimeSpan.Length > 0)
+            {
+                return TimeSpan.Parse(playtimeRewardTimeSpan);
+            }
+            else
+            {
+                return TimeSpan.Zero;
+            }
+        } 
+        set 
+        { 
+            playtimeRewardTimeSpan = value.ToString(); 
+        } 
+    }
 }

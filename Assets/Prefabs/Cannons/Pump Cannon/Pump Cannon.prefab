@@ -15198,7 +15198,7 @@ GameObject:
   - component: {fileID: 3233678005153643612}
   m_Layer: 10
   m_Name: Pump Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15252,6 +15252,8 @@ MonoBehaviour:
   chillProportionStart: 0
   chillProportion: 0.3
   centerOfMassYChange: -0.5
+  volume: 1
+  pitch: -0.5
 --- !u!50 &4324364974198282568
 Rigidbody2D:
   serializedVersion: 4

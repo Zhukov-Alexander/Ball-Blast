@@ -10,6 +10,7 @@ public class StartMenu : MonoBehaviour
     [SerializeField] GameObject optionesMenu;
     [SerializeField] GameObject sceneMenuManager;
     [SerializeField] GameObject cannonMenuManager;
+    [SerializeField] GameObject levelMenu;
     public static Action OnExit { get; set; }
     public static Action OnEnter { get; set; }
     public static Action OnFirstEnter { get; set; }
@@ -18,8 +19,8 @@ public class StartMenu : MonoBehaviour
 
     private void Awake()
     {
-        OnEnter += () => UIAnimation.Open(gameObject);
-        OnExit += () => UIAnimation.Close(gameObject);
+        OnEnter += () => UIAnimation.Open(gameObject, false);
+        OnExit += () => UIAnimation.Close(gameObject, false);
         LevelMenu.AddToStart(() => OnExit());
         ResultsPanel.OnHide += () => OnEnter();
         CannonMenuManager.OnEnter += () => OnExit();
@@ -28,10 +29,14 @@ public class StartMenu : MonoBehaviour
         SceneMenuManager.OnExit += () => OnEnter();
         OptionesMenuManager.OnExit += () => OnEnter();
         OnFirstEnter += OptionesMenuManager.UpdateState;
+        OnFirstEnter += () => OnEnter();
         OnExit += () => canStartLevel = false;
         OnEnter += () => canStartLevel = true;
-        SaveManager.Instance.OnLoaded += () => OnFirstEnter();
-        SaveManager.Instance.OnLoaded += () => OnEnter();
+
+        Action onFirstEnter = () => OnFirstEnter();
+        SaveManager.Instance.OnLoaded += onFirstEnter;
+        OnFirstEnter += () => SaveManager.Instance.OnLoaded -= onFirstEnter;
+
     }
     public void OpenCannonMenu()
     {
@@ -63,14 +68,7 @@ public class StartMenu : MonoBehaviour
     }
     public void StartGame()
     {
-        if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
-        {
-            LevelMenu.OnStartCampain();
-        }
-        else if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
-        {
-            LevelMenu.OnStartBossfight();
-        }
+        UIAnimation.Open(levelMenu);
     }
 
 }

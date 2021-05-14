@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BubbleCannonSettings
   m_EditorClassIdentifier: 
   cannonName: Bubble
-  bulletsDamageMultiplyer: 0.35
+  bulletsDamageMultiplyer: 0.3
   cannonMoveForceMultiplyer: 0.6
-  bonusProbabilityMultiplyer: 1.2
+  bonusProbabilityMultiplyer: 1.1
   bulletsPerSecondMultiplyer: 2.8
-  healthMultiplyer: 1.5
+  healthMultiplyer: 1.6
   armorMultiplyer: 0.8

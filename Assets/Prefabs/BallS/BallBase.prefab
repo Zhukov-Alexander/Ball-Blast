@@ -391,6 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb6d767f2bf9a04fa1a130fbcc7402c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeathAnimGO: {fileID: 3669070760879821443, guid: 96487e82384535340b36385abba8adeb,
+    type: 3}
   textMeshProUGUI: {fileID: 9099502722126495147}
   spriteRenderer: {fileID: 4757799604061852917}
 --- !u!60 &4310364241501335925

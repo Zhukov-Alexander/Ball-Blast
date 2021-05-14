@@ -9,6 +9,8 @@ TagManager:
   - Ball
   - FirstUpgradeTabTag
   - BackgroundCanvas
+  - Cannon
+  - Bonus
   layers:
   - Default
   - TransparentFX
@@ -30,7 +32,7 @@ TagManager:
   - CannonAura
   - EnemyBullet
   - Boss
-  - 
+  - Bonus
   - 
   - 
   - 

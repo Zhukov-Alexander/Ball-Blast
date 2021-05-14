@@ -9,7 +9,7 @@ public class BallSpawner : MonoBehaviour
 {
 
     [SerializeField] int sign;
-    public void Shoot(float life, int type, int number)
+    public void Shoot(BallSpawnSettings ballSpawnSettings, int number)
     {
         GameObject ballGO = CreateABall();
         Rigidbody2D ballRigidbody2D = ballGO.GetComponent<Rigidbody2D>();
@@ -29,9 +29,9 @@ public class BallSpawner : MonoBehaviour
         }
         GameObject CreateABall()
         {
-            GameObject ballGameObject = Instantiate(gameConfig.ballPrefabs[type], gameObject.transform.position, Quaternion.identity, transform);
+            GameObject ballGameObject = Instantiate(gameConfig.ballPrefabs[ballSpawnSettings.type], gameObject.transform.position, Quaternion.identity, transform);
             Ball ball = ballGameObject.GetComponent<Ball>();
-            ball.Constructor(life, type, number);
+            ball.Constructor(ballSpawnSettings, number);
 
             return ballGameObject;
         }

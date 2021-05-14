@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33f77d2e8205774ab504cf523d59aa4, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  epsilon: 0.0001
+  epsilon: 0.001
   ballPrefabs:
   - {fileID: 2993049355571871454, guid: e175e9f404e03f94eb075ad30604f322, type: 3}
   - {fileID: 6065390773938060371, guid: 4fddd9ade0e325543a0a2cc9fc844895, type: 3}
@@ -55,9 +55,7 @@ MonoBehaviour:
   - 0.1
   ballShotAngles: {x: 5, y: 20}
   ballForceToShoot: {x: 4, y: 7}
-  minBallScale: 0.3
-  maxBallScale: 1
-  timeToDownScaleEnemy: 0.3
+  timeToDownScaleEnemy: 0.4
   ScaleEnemyAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -71,6 +69,24 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.018656718
     - serializedVersion: 3
+      time: 0.27472886
+      value: 0.9065899
+      inSlope: -0.009929248
+      outSlope: -0.009929248
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8250601
+      value: 1.0403383
+      inSlope: 0.012852624
+      outSlope: 0.012852624
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1.00177
       value: 1
       inSlope: -0.43946216
@@ -82,13 +98,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  bulletDamage: 100
+  bulletDamage: 80
   cannonMoveForce: 200
   bonusProbability: 0.05
   bulletsPerSecond: 2
   bulletsSpeed: 3
-  health: 1000
-  armor: 50
+  health: 800
+  armor: 0.1
   cannonInstantiatePosition: {x: 0, y: -2, z: 0}
   cannonPrefabs:
   - {fileID: 8427909442948576857, guid: 2c2325b097c1df44eb154a1498e872ca, type: 3}
@@ -114,8 +130,8 @@ MonoBehaviour:
   waitingMixCoef: 0.3
   waitingMixCycles: 1
   maxBallPositionY: 2.5
-  minBallPositionY: -0.5
-  ballChangePosForceY: 1.7
+  minBallPositionY: -0.4
+  ballChangePosForceY: 1.8
   maxBallAngularVelocity: 200
   baseBallAngularDrag: 1
   ballAngularDragCoef: 0.2
@@ -156,7 +172,7 @@ MonoBehaviour:
   bossPrefabPosition: {x: 0, y: 6, z: 0}
   bossLives: 3500
   bossDamage: 120
-  bossArmor: 20
+  bossArmor: 0.1
   bossSpeed: 2
   bossfightToCampainModMoneyMultiplyer: 5
   baseCannonCost: 10
@@ -180,3 +196,7 @@ MonoBehaviour:
   activeButtonColor: {r: 0.854902, g: 0.121568635, b: 0.14901961, a: 1}
   passiveButtonColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
   adMoneyMultiplyer: 2
+  bonusHealthCoef: 0.3
+  bonusShieldTime: 5
+  bonusSpeedCoef: 2
+  bonusSpeedTime: 5

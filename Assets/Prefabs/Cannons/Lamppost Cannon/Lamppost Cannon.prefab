@@ -5146,7 +5146,7 @@ GameObject:
   - component: {fileID: 8217293894327038503}
   m_Layer: 10
   m_Name: Lamppost Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5196,6 +5196,8 @@ MonoBehaviour:
   chillProportionStart: 0
   chillProportion: 0
   centerOfMassYChange: -0.5
+  volume: 1
+  pitch: -0.5
 --- !u!50 &2106064518674530380
 Rigidbody2D:
   serializedVersion: 4

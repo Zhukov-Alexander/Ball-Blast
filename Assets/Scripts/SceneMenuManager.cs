@@ -94,6 +94,7 @@ public class SceneMenuManager : MonoBehaviour
 
     void SetActiveScrollView(SceneScrollViewItem activeCannonScrollView)
     {
+        SoundManager.Instance.Button(0.3f);
         this.activeCannonScrollView = activeCannonScrollView;
         index = activeCannonScrollViews.IndexOf(activeCannonScrollView);
         slider.SetSlider(activeCannonScrollViews.Count, index);
@@ -144,6 +145,7 @@ public class SceneMenuManager : MonoBehaviour
             void Open()
             {
                 SaveManager.Instance.SavedValues.OpendBackgroundsPrefabIndexes.Add(activeCannonScrollView.Background.PrefabNumber);
+                SoundManager.Instance.Bonus();
                 activeCannonScrollView.BuyAnimation();
             }
         }

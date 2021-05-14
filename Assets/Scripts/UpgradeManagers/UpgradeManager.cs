@@ -19,7 +19,7 @@ public abstract class UpgradeManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI upgradeStatsResultTMP;
     [SerializeField] Button upgradeButton;
     [SerializeField] protected TextMeshProUGUI upgradeCostTMP;
-    private float upgradeCost;
+    private double upgradeCost;
     private static List<UpgradeManager> UpgradeManagers;
     public static Action OnUpgrade;
 
@@ -37,6 +37,7 @@ public abstract class UpgradeManager : MonoBehaviour
     unsafe protected virtual void SetThisUpgrade()
     {
         SoundManager.Instance.Button();
+        Vibration.Vibrate(gameObject);
     }
 
     unsafe protected void SetThisUpgrade(int* statLevel, float baseAmount, float multiplyer, float statProgression, float costProgression)
@@ -63,17 +64,17 @@ public abstract class UpgradeManager : MonoBehaviour
         }
         void SetCurrentUpgradeStats()
         {
-            string statText = NumberHandler.NumberToTextInOneLineWithFraction(baseAmount * statProgression);
+            string statText = NumberHandler.NumberToTextInOneLine(baseAmount * statProgression, true);
             statText += " * " + HelperClass.MultiplyerToPercent(multiplyer);
             statText += " = ";
             upgradeStatsTMP.text = statText;
-            upgradeStatsResultTMP.text = NumberHandler.NumberToTextInOneLineWithFraction(baseAmount * statProgression * multiplyer);
+            upgradeStatsResultTMP.text = NumberHandler.NumberToTextInOneLine(baseAmount * statProgression * multiplyer, true);
         }
 
         void SetUpgradeCost()
         {
             upgradeCost = (gameConfig.levelDuration * gameConfig.levelLifePerSec * costProgression);
-            upgradeCostTMP.text = NumberHandler.NumberToTextInOneLineWithFraction(upgradeCost);
+            upgradeCostTMP.text = NumberHandler.NumberToTextInOneLine(upgradeCost, true);
         }
         void SetUpgradeButton()
         {
@@ -99,6 +100,8 @@ public abstract class UpgradeManager : MonoBehaviour
                     SaveManager.Instance.SaveLocal();
                     OnUpgrade();
                     SetThisUpgrade();
+                    Vibration.Vibrate(gameObject);
+                    Vibration.Vibrate(upgradeButton.gameObject);
                 }
             }
         }

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public static class HelperClass
 {
@@ -45,7 +45,7 @@ public static class HelperClass
     public static float RandomFloat(float min, float max)
     {
         double range = max - min;
-        double sample = random.NextDouble();
+        double sample = Random.value;
         double scaled = (sample * range) + min;
         return (float)scaled;
     }
@@ -153,13 +153,13 @@ public static class HelperClass
     }
 
     //возвращает лист связок индекс-тип на основе общего веса и веса индексов различного типа
-    public static List<int> GetListOfTypedIndexes(List<float> typeProbabilities, List<float> typeAmounts, float wholeAmount)
+    public static List<int> GetListOfTypedIndexes(List<float> typeProbabilities, List<float> typeAmounts, double wholeAmount)
     {
         List<int> output = new List<int>();
-        for (float i = 0; i < wholeAmount; )
+        for (double i = 0; i < wholeAmount; )
         {
-            float threshold = (float)random.NextDouble() * typeProbabilities.Sum();
-            float accumulatedValue = 0;
+            double threshold = Random.value * typeProbabilities.Sum();
+            double accumulatedValue = 0;
             for (int a = 0; a < typeProbabilities.Count; a++)
             {
                 accumulatedValue += typeProbabilities[a];
@@ -188,13 +188,13 @@ public static class HelperClass
         return output;
     }
     //возвращает лист с усредненными значениями в зависимости параметра размеров
-    public static List<float> GetListWithAveragedValues(List<float> initialList, List<int> sizes, out float averageValue)
+    public static List<double> GetListWithAveragedValues(List<double> initialList, List<int> sizes, out double averageValue)
     {
-        List<float> output = new List<float>();
+        List<double> output = new List<double>();
         int b = 0;
         for (int i = 0; i < sizes.Count; i++)
         {
-            List<float> avr = new List<float>();
+            List<double> avr = new List<double>();
             for (int a = 0; a <= sizes[i]; a++)
             {
                 if (b >= initialList.Count) break;
@@ -218,16 +218,15 @@ public static class HelperClass
     }
 
     //выдает определенное количество случайных объектов на основе списка объектов
-    public static List<T> GetRandomObjectsFromList<T>(List<T> objects, int amount = 1)
+    public static List<T> GetRandomObjectsFromList<T>(List<T> objects, int amount = 1, bool withRepetition = true)
     {
-        List<T> objectsCopy = objects.Copy();
-
+        List<T> objectsCopy = new List<T>(objects);
         List<T> output = new List<T>();
         for (int i = 0; i < amount; i++)
         {
-            int index = random.Next(objectsCopy.Count);
+            int index = Random.Range(0, objectsCopy.Count);
             output.Add(objectsCopy[index]);
-            //objectsCopy.RemoveAt(index);
+            if(!withRepetition) objectsCopy.RemoveAt(index);
         }
         return output;
     }
@@ -304,7 +303,7 @@ public static class HelperClass
                 if (currentCount >= list.Count)
                     break;
 
-                int index = random.Next(list.Count);
+                int index = Random.Range(0, list.Count);
                 output[list[index]] = i;
                 list.RemoveAt(index);
                 currentCount++;
@@ -324,7 +323,7 @@ public static class HelperClass
             int partCount = (int)Math.Ceiling(partsProportiones[i] * list.Count);
             for (int b = 0; b < partCount; b++)
             {
-                int index = random.Next(listCopy.Count);
+                int index = Random.Range(0, listCopy.Count);
                 part.Add(listCopy[index]);
                 listCopy.RemoveAt(index);
                 currentCount++;
@@ -386,11 +385,11 @@ public static class HelperClass
     }
 
     //возвращает лист с линейно возрастающими значениями с учетом их суммы, количества и вариации
-    public static List<float> GetListWithLinearlyIncreasingValuesBasedOnTotalValue(float totalValue, int size, float variationCoef)
+    public static List<double> GetListWithLinearlyIncreasingValuesBasedOnTotalValue(double totalValue, int size, float variationCoef)
     {
-        List<float> output = new List<float>();
-        float indexValue = totalValue / size;
-        float variation = indexValue * variationCoef;
+        List<double> output = new List<double>();
+        double indexValue = totalValue / size;
+        double variation = indexValue * variationCoef;
         for (int i = 0; i < size; i++)
         {
             output.Add(indexValue - variation + variation / size * 2 * i);
@@ -432,29 +431,55 @@ public static class HelperClass
     }
 
     //возвращает лист с перемешанными значениями
+    public static List<double> MixValues(List<double> valuesToMix, int amountOfValuesToMixSimultaneosly, float mixCoef, int mixCycles = 1)
+    {
+        int amountOfGroupsToMix = (int)Math.Ceiling((float)valuesToMix.Count / amountOfValuesToMixSimultaneosly);
+        List<double> output = new List<double>();
+        for (int i = 0; i < amountOfGroupsToMix; i++)
+        {
+            List<double> groupToMix = new List<double>();
+            for (int a = 0; a < amountOfValuesToMixSimultaneosly; a++)
+            {
+                if (i * amountOfValuesToMixSimultaneosly + a >= valuesToMix.Count)
+                    break;
+                groupToMix.Add(valuesToMix[i * amountOfValuesToMixSimultaneosly + a]);
+            }
+            for (int b = 0; b < mixCycles; b++)
+            {
+                for (int c = 0; c < groupToMix.Count; c++)
+                {
+                    double healthToMix = mixCoef / mixCycles * groupToMix[c];
+                    groupToMix[c] -= healthToMix;
+                    groupToMix[Random.Range(0, groupToMix.Count)] += healthToMix;
+                }
+            }
+            output.AddRange(groupToMix);
+        }
+        return output;
+    }
     public static List<float> MixValues(List<float> valuesToMix, int amountOfValuesToMixSimultaneosly, float mixCoef, int mixCycles = 1)
     {
         int amountOfGroupsToMix = (int)Math.Ceiling((float)valuesToMix.Count / amountOfValuesToMixSimultaneosly);
         List<float> output = new List<float>();
         for (int i = 0; i < amountOfGroupsToMix; i++)
         {
-            List<float> GroupToMix = new List<float>();
+            List<float> groupToMix = new List<float>();
             for (int a = 0; a < amountOfValuesToMixSimultaneosly; a++)
             {
                 if (i * amountOfValuesToMixSimultaneosly + a >= valuesToMix.Count)
                     break;
-                GroupToMix.Add(valuesToMix[i * amountOfValuesToMixSimultaneosly + a]);
+                groupToMix.Add(valuesToMix[i * amountOfValuesToMixSimultaneosly + a]);
             }
             for (int b = 0; b < mixCycles; b++)
             {
-                for (int c = 0; c < GroupToMix.Count; c++)
+                for (int c = 0; c < groupToMix.Count; c++)
                 {
-                    float healthToMix = mixCoef / mixCycles * GroupToMix[c];
-                    GroupToMix[c] -= healthToMix;
-                    GroupToMix[random.Next(0, GroupToMix.Count)] += healthToMix;
+                    float healthToMix = mixCoef / mixCycles * groupToMix[c];
+                    groupToMix[c] -= healthToMix;
+                    groupToMix[Random.Range(0, groupToMix.Count)] += healthToMix;
                 }
             }
-            output.AddRange(GroupToMix);
+            output.AddRange(groupToMix);
         }
         return output;
     }
@@ -464,7 +489,7 @@ public static class HelperClass
         List<int> output = new List<int>();
         for (int i = 0; i < count; i++)
         {
-            int number = random.Next(min, max+1);
+            int number = Random.Range(min, max+1);
             output.Add(number);
         }
         return output;

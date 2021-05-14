@@ -4970,7 +4970,7 @@ GameObject:
   - component: {fileID: 6416143954860638453}
   m_Layer: 10
   m_Name: Angel Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5019,6 +5019,8 @@ MonoBehaviour:
   chillProportionStart: 0.5
   chillProportion: 0.1
   centerOfMassYChange: -0.5
+  volume: 1
+  pitch: -0.5
 --- !u!50 &8182184857312068358
 Rigidbody2D:
   serializedVersion: 4

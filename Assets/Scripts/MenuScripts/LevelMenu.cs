@@ -29,14 +29,24 @@ public class LevelMenu : MonoBehaviour
         OnEndBossfightLose += () => PlayGamesPlatform.Instance.IncrementAchievement("CgkI-u2t7t4eEAIQAA", 1, (bool success) => { });
         OnEndBossfightWin += () => SaveManager.Instance.SavedValues.BossfightLevel++;
 
-        AddToStart(() => GetComponentsInChildren<Animator>().ToList().ForEach(a=> a.SetTrigger("Open")));
-        AddToEnd(() => GetComponentsInChildren<Animator>().ToList().ForEach(a=> a.SetTrigger("Close")));
         AddToEnd(() => LastChanceMenu.isTaken = false);
+        AddToEnd(() => UIAnimation.Close(gameObject));
         BallSpawnersManager.OnLevelCalculated += levelProgression.SetCampain;
         BossManager.OnBossInstantiated += levelProgression.SetBossfight;
         Ball.OnTakeDamage += levelProgression.ChangePointsBall;
         Boss.OnTakeDamage += levelProgression.ChangePointsBoss;
         Cannon.OnLostAllLives += () => Instantiate(lastChanceMenu, GetComponentInParent<Canvas>().transform, false);
+    }
+    private void OnEnable()
+    {
+        if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
+        {
+            LevelMenu.OnStartCampain();
+        }
+        else if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
+        {
+            LevelMenu.OnStartBossfight();
+        }
     }
     public static void AddToStart(Action action)
     {

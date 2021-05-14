@@ -1,233 +1,88 @@
 ﻿using static System.Environment;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public static class NumberHandler
 {
-    private static readonly float Q = Mathf.Pow(10, 15);
-    private static readonly float T = Mathf.Pow(10, 12);
-    private static readonly float B = Mathf.Pow(10, 9);
-    private static readonly float M = Mathf.Pow(10, 6);
-    private static readonly float K = Mathf.Pow(10, 3);
-
-    public static string NumberToTextInOneLineWithoutFraction(this float number)
+    private static readonly string format0 = "f0";
+    private static readonly string format1 = "f1";
+    private static readonly string format2 = "f2";
+    private static readonly KeyValuePair<double, string>[] numAbbrevs = new KeyValuePair<double, string>[]
     {
-        if (number >= Q)
-        {
-            if (number / Q < 100)
-            {
-                if (number / Q < 10)
-                {
-                    return ((number / Q)).ToString("f2") + "Q";
-                }
-                return ((number / Q)).ToString("f1") + "Q";
-            }
+        new KeyValuePair<double, string>(Mathf.Pow(10, 3), "K"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 6), "M"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 9), "B"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 12), "T"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 15), "q"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 18), "Q"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 21), "s"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 24), "S"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 27), "O"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 30), "N"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 33), "d"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 33), "U"),
+        new KeyValuePair<double, string>(Mathf.Pow(10, 36), "D"),
+    }; 
 
-            return ((number / Q)).ToString("f0") + "Q";
-        }
-        if (number >= T)
-        {
-            if (number / T < 100)
-            {
-                if (number / T < 10)
-                {
-                    return ((number / T)).ToString("f2") + "T";
-                }
-                return ((number / T)).ToString("f1") + "T";
-            }
-
-            return ((number / T)).ToString("f0") + "T";
-        }
-        else if(number >= B)
-        {
-            if (number / B < 100)
-            {
-                if (number / B < 10)
-                {
-                    return ((number / B)).ToString("f2") + "B";
-                }
-                return ((number / B)).ToString("f1") + "B";
-            }
-
-            return ((number / B)).ToString("f0") + "B";
-        }
-        else if (number >= M)
-        {
-            if (number / M < 100)
-            {
-                if (number / M < 10)
-                {
-                    return ((number / M)).ToString("f2") + "M";
-                }
-                return ((number / M)).ToString("f1") + "M";
-            }
-
-            return ((number / M)).ToString("f0") + "M";
-        }
-        else if (number >= K)
-        {
-            if (number / K < 100)
-            {
-                if (number / K < 10)
-                {
-                    return ((number / K)).ToString("f2") + "K";
-                }
-                return ((number / K)).ToString("f1") + "K";
-            }
-            return ((number / K)).ToString("f0") + "K";
-        }
-        else
-        {
-            return Mathf.Round(number).ToString("f0");
-        }
-    }
-    public static string NumberToTextInOneLineWithoutFraction(this int number)
+    public static string NumberToTextInOneLine(this double number, bool withFraction = false)
     {
-        if (number >= Q)
+        foreach (var item in numAbbrevs.Reverse())
         {
-            if (number / Q < 100)
+            if (number >= item.Key)
             {
-                if (number / Q < 10)
+                if (number / item.Key < 100)
                 {
-                    return ((number / Q)).ToString("f2") + "Q";
+                    if (number / item.Key < 10)
+                    {
+                        return ((number / item.Key)).ToString(format1) + item.Value;
+                    }
+                    return ((number / item.Key)).ToString(format0) + item.Value;
                 }
-                return ((number / Q)).ToString("f1") + "Q";
+                return ((number / item.Key)).ToString(format0) + item.Value;
             }
-
-            return ((number / Q)).ToString("f0") + "Q";
         }
-        if (number >= T)
-        {
-            if (number / T < 100)
-            {
-                if (number / T < 10)
-                {
-                    return ((number / T)).ToString("f2") + "T";
-                }
-                return ((number / T)).ToString("f1") + "T";
-            }
-
-            return ((number / T)).ToString("f0") + "T";
-        }
-        else if (number >= B)
-        {
-            if (number / B < 100)
-            {
-                if (number / B < 10)
-                {
-                    return ((number / B)).ToString("f2") + "B";
-                }
-                return ((number / B)).ToString("f1") + "B";
-            }
-
-            return ((number / B)).ToString("f0") + "B";
-        }
-        else if (number >= M)
-        {
-            if (number / M < 100)
-            {
-                if (number / M < 10)
-                {
-                    return ((number / M)).ToString("f2") + "M";
-                }
-                return ((number / M)).ToString("f1") + "M";
-            }
-
-            return ((number / M)).ToString("f0") + "M";
-        }
-        else if (number >= K)
-        {
-            if (number / K < 100)
-            {
-                if (number / K < 10)
-                {
-                    return ((number / K)).ToString("f2") + "K";
-                }
-                return ((number / K)).ToString("f1") + "K";
-            }
-            return ((number / K)).ToString("f0") + "K";
-        }
-        else
-        {
-            return Mathf.Round(number).ToString("f0");
-        }
-    }
-    public static string NumberToTextInOneLineWithFraction(this float number)
-    {
-        if (number >= Q)
-        {
-            if (number / Q < 100)
-            {
-                if (number / Q < 10)
-                {
-                    return ((number / Q)).ToString("f2") + "Q";
-                }
-                return ((number / Q)).ToString("f1") + "Q";
-            }
-
-            return ((number / Q)).ToString("f0") + "Q";
-        }
-        if (number >= T)
-        {
-            if (number / T < 100)
-            {
-                if (number / T < 10)
-                {
-                    return ((number / T)).ToString("f2") + "T";
-                }
-                return ((number / T)).ToString("f1") + "T";
-            }
-
-            return ((number / T)).ToString("f0") + "T";
-        }
-        else if (number >= B)
-        {
-            if (number / B < 100)
-            {
-                if (number / B < 10)
-                {
-                    return ((number / B)).ToString("f2") + "B";
-                }
-                return ((number / B)).ToString("f1") + "B";
-            }
-
-            return ((number / B)).ToString("f0") + "B";
-        }
-        else if (number >= M)
-        {
-            if (number / M < 100)
-            {
-                if (number / M < 10)
-                {
-                    return ((number / M)).ToString("f2") + "M";
-                }
-                return ((number / M)).ToString("f1") + "M";
-            }
-
-            return ((number / M)).ToString("f0") + "M";
-        }
-        else if (number >= K)
-        {
-            if (number / K < 100)
-            {
-                if (number / K < 10)
-                {
-                    return ((number / K)).ToString("f2") + "K";
-                }
-                return ((number / K)).ToString("f1") + "K";
-            }
-            return ((number / K)).ToString("f0") + "K";
-        }
-        else
+        if(withFraction)
         {
             if (number < 100)
             {
                 if (number < 10)
                 {
-                    return ((number)).ToString("f2");
+                    return ((number)).ToString(format2);
                 }
-                return ((number)).ToString("f1");
+                return ((number)).ToString(format1);
             }
-            return ((number)).ToString("f0");
         }
+        return Mathf.Round((float)number).ToString(format0);
+    }
+    public static string NumberToTextInOneLine(this int number, bool withFraction = false)
+    {
+        foreach (var item in numAbbrevs.Reverse())
+        {
+            if (number >= item.Key)
+            {
+                if (number / item.Key < 100)
+                {
+                    if (number / item.Key < 10)
+                    {
+                        return ((number / item.Key)).ToString(format1) + item.Value;
+                    }
+                    return ((number / item.Key)).ToString(format0) + item.Value;
+                }
+                return ((number / item.Key)).ToString(format0) + item.Value;
+            }
+        }
+        if(withFraction)
+        {
+            if (number < 100)
+            {
+                if (number < 10)
+                {
+                    return ((number)).ToString(format2);
+                }
+                return ((number)).ToString(format1);
+            }
+        }
+        return Mathf.Round(number).ToString(format0);
     }
 }

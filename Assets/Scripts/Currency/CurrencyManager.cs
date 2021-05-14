@@ -15,7 +15,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void Awake()
     {
-        ResultsPanel.OnHide += CollectCurrency;
+        LevelMenu.AddToEnd(CollectCurrency);
         StartMenu.OnEnter += SetCoins;
         StartMenu.OnEnter+=SetDiamonds;
         Ball.OnDestroy += SpawnCoinsCampain;
@@ -30,17 +30,17 @@ public class CurrencyManager : MonoBehaviour
         FindObjectsOfType<Currency>().ToList().ForEach(a=>a.Collect());
     }
 
-    void SpawnCoinsCampain(float ballInitialLives, Vector2 ballPosition)
+    void SpawnCoinsCampain(double ballInitialLives, Vector2 ballPosition)
     {
         SpawnCoins(ballInitialLives, ballPosition, Progression.GetCampainProgression(), 1, Random.Range(gameConfig.randomCoinsMultiplyer.x, gameConfig.randomCoinsMultiplyer.y));
     }
-    void SpawnCoinsBossfight(float ballInitialLives, Vector2 ballPosition)
+    void SpawnCoinsBossfight(double ballInitialLives, Vector2 ballPosition)
     {
         SpawnCoins(ballInitialLives, ballPosition, Progression.GetBossfightProgression(), gameConfig.bossfightToCampainModMoneyMultiplyer);
     }
-    void SpawnCoins(float ballInitialLives, Vector2 ballPosition, float progression, float modMultiplyer, float randomMultiplyer = 1)
+    void SpawnCoins(double ballInitialLives, Vector2 ballPosition, float progression, float modMultiplyer, float randomMultiplyer = 1)
     {
-        float amount = ballInitialLives * modMultiplyer * randomMultiplyer;
+        double amount = ballInitialLives * modMultiplyer * randomMultiplyer;
         List<float> coinWeights = gameConfig.coinWeights.Select(a => (progression * modMultiplyer * a)).ToList();
         List<int> coinsTypes = HelperClass.GetListOfTypedIndexes(gameConfig.coinProbabilities, coinWeights, amount);
         StartCoroutine(InstantiateCoins(coinsTypes, ballPosition, coinWeights));
@@ -68,12 +68,12 @@ public class CurrencyManager : MonoBehaviour
     }
     public void SetCoins()
     {
-        coinsTMP.text = SaveManager.Instance.SavedValues.Coins.NumberToTextInOneLineWithoutFraction();
+        coinsTMP.text = SaveManager.Instance.SavedValues.Coins.NumberToTextInOneLine();
         
     }
     public void SetDiamonds()
     {
-        diamondsTMP.text = SaveManager.Instance.SavedValues.Diamonds.NumberToTextInOneLineWithoutFraction();
+        diamondsTMP.text = SaveManager.Instance.SavedValues.Diamonds.NumberToTextInOneLine();
     }
 
 

@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class UIAnimationMovement : UIAnimation
 {
-    [SerializeField] float timeToMove;
+    [SerializeField] float timeToMove = 1;
     [SerializeField] Vector3 openedPosition;
     [SerializeField] Vector3 closedPosition;
     public override Sequence Open()

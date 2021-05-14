@@ -20,8 +20,6 @@ public class GameConfiguration : ScriptableObject
     public List<float> ballTypeProbabilities;
     public Vector2Int ballShotAngles;
     public Vector2 ballForceToShoot;
-    public float minBallScale;
-    public float maxBallScale;
     public float timeToDownScaleEnemy;
     public AnimationCurve ScaleEnemyAnimationCurve;
 
@@ -120,4 +118,11 @@ public class GameConfiguration : ScriptableObject
     [Space]
     [Header("ResultsMenu")]
     public float adMoneyMultiplyer;
+
+    [Space]
+    [Header("Bonuses")]
+    public float bonusHealthCoef;
+    public float bonusShieldTime;
+    public float bonusSpeedCoef;
+    public float bonusSpeedTime;
 }

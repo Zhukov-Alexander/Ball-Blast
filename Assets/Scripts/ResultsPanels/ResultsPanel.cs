@@ -24,7 +24,7 @@ public class ResultsPanel : MonoBehaviour
     [SerializeField] LevelSlider slider;
     [SerializeField] TextMeshProUGUI moneyTMP;
     [SerializeField] GameObject addButtonGO;
-    float money;
+    double money;
     public static Action OnHide { get; set; }
     public void Hide()
     {
@@ -52,6 +52,7 @@ public class ResultsPanel : MonoBehaviour
     }
     public void SetCampainLose()
     {
+        addButtonGO.SetActive(false);
         StartCoroutine(SetLose());
         StartCoroutine(SetCampain());
         UIAnimation.Open(gameObject).AppendCallback(AnimateLose).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.currentPoints)).Play();
@@ -61,17 +62,13 @@ public class ResultsPanel : MonoBehaviour
         StartCoroutine(SetWin());
         StartCoroutine(SetBossfight());
         UIAnimation.Open(gameObject).AppendCallback(AnimateWin).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.maxPoints - LevelProgression.currentPoints)).Play();
-        CalculateBossfightAdMoney();
-        if(AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)) addButtonGO.SetActive(true);
-        else addButtonGO.SetActive(false);
     }
     public void SetBossfightLose()
     {
+        addButtonGO.SetActive(false);
         StartCoroutine(SetLose());
         StartCoroutine(SetBossfight());
-        addButtonGO.SetActive(false);
         UIAnimation.Open(gameObject).AppendCallback(AnimateLose).AppendCallback(() => slider.TweenSlider(LevelProgression.maxPoints, 0f, LevelProgression.maxPoints - LevelProgression.currentPoints)).Play();
-
     }
     IEnumerator SetCampain()
     {
@@ -80,8 +77,6 @@ public class ResultsPanel : MonoBehaviour
         slider.SetCampainIcon();
         slider.SetSlider(1,0);
         CalculateCampainAdMoney();
-        if (money <= 0) addButtonGO.SetActive(false); 
-        else if(AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)) addButtonGO.SetActive(true);
         var lsa = campainMode.GetLocalizedString();
         yield return lsa;
         mod.text = lsa.Result;
@@ -93,6 +88,7 @@ public class ResultsPanel : MonoBehaviour
         level.text = (SaveManager.Instance.SavedValues.BossfightLevel).ToString();
         slider.SetBossfightIcon();
         slider.SetSlider(1, 0);
+        CalculateBossfightAdMoney();
         var lsa = bossfightMode.GetLocalizedString();
         yield return lsa;
         mod.text = lsa.Result;
@@ -113,12 +109,12 @@ public class ResultsPanel : MonoBehaviour
     void CalculateCampainAdMoney()
     {
         money = gameConfig.adMoneyMultiplyer * LevelProgression.currentPoints;
-        moneyTMP.text = money.NumberToTextInOneLineWithoutFraction();
+        moneyTMP.text = "+" + money.NumberToTextInOneLine();
     }
     void CalculateBossfightAdMoney()
     {
         money = gameConfig.adMoneyMultiplyer * LevelProgression.maxPoints * gameConfig.bossfightToCampainModMoneyMultiplyer;
-        moneyTMP.text = money.NumberToTextInOneLineWithoutFraction();
+        moneyTMP.text = "+" + money.NumberToTextInOneLine();
     }
     public void ClickAdButton()
     {
@@ -136,6 +132,9 @@ public class ResultsPanel : MonoBehaviour
     {
         winPS.Emit(20);
         SoundManager.Instance.Win();
+        if (money <= 0) addButtonGO.SetActive(false);
+        else if (AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)) addButtonGO.SetActive(true);
+        else addButtonGO.SetActive(false);
     }
     void AnimateLose()
     {

@@ -5653,7 +5653,7 @@ GameObject:
   - component: {fileID: 8967928922692527894}
   m_Layer: 10
   m_Name: Bubble Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5703,6 +5703,8 @@ MonoBehaviour:
   chillProportionStart: 0.1
   chillProportion: 0.2
   centerOfMassYChange: -0.5
+  volume: 1
+  pitch: -0.5
 --- !u!50 &6949931406021634540
 Rigidbody2D:
   serializedVersion: 4

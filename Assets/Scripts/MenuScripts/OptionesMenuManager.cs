@@ -91,7 +91,6 @@ public class OptionesMenuManager : MonoBehaviour
     {
         if (SocialManager.Instance.isConnectedToGooglePlayServices)
         {
-            SaveManager.Instance.SaveCloud();
             SocialManager.Instance.SignOut();
             StartCoroutine(SetLocalizedString(accountTMP));
         }
@@ -107,6 +106,7 @@ public class OptionesMenuManager : MonoBehaviour
                 {
                     StartCoroutine(SetLocalizedString(accountTMP));
                 }
+                SaveManager.Instance.Load();
             });
         }
     }

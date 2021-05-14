@@ -17,28 +17,25 @@ public class SaveManager: Singleton<SaveManager>
     public Action OnSaved { get; set; }
     public SavedValues SavedValues { get; set; }
 
-    private void Awake()
-    {
-        SocialManager.Instance.OnAuthenticated += Load;
-    }
     private void OpenCloud(Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
     {
         var platform = (PlayGamesPlatform)Social.Active;
         platform.SavedGame.OpenWithAutomaticConflictResolution(cloudSaveName, dataSource, conflictResolutionStrategy, callback);
 
     }
-    public void SaveCloud()
+    public void SaveCloud(Action<SavedGameRequestStatus> callback = null, bool deleteLocalSave = false)
     {
         if (SocialManager.Instance.isConnectedToGooglePlayServices)
         {
             OpenCloud(OnSaveResponse);
         }
-#if UNITY_EDITOR
         else
         {
-            Debug.Log("SaveCloud");
+            SaveLocal();
+            OnSaved?.Invoke();
+            callback?.Invoke(SavedGameRequestStatus.AuthenticationError);
         }
-#endif
+
         void OnSaveResponse(SavedGameRequestStatus status, ISavedGameMetadata metadata)
         {
             if (status == SavedGameRequestStatus.Success)
@@ -54,6 +51,7 @@ public class SaveManager: Singleton<SaveManager>
             {
                 SaveLocal();
                 OnSaved?.Invoke();
+                callback?.Invoke(status);
             }
         }
         void SaveCallback(SavedGameRequestStatus status, ISavedGameMetadata metadata)
@@ -61,15 +59,18 @@ public class SaveManager: Singleton<SaveManager>
             if (status == SavedGameRequestStatus.Success)
             {
                 OnSaved?.Invoke();
+                callback?.Invoke(status);
+                if (deleteLocalSave) DeleteLocalSave();
             }
             else
             {
                 SaveLocal();
                 OnSaved?.Invoke();
+                callback?.Invoke(status);
             }
         }
     }
-    void Load()
+    public void Load(Action<SavedGameRequestStatus> callback = null)
     {
         if (SocialManager.Instance.isConnectedToGooglePlayServices)
         {
@@ -78,6 +79,7 @@ public class SaveManager: Singleton<SaveManager>
         else
         {
             SavedValues = LoadLocal();
+            callback?.Invoke(SavedGameRequestStatus.AuthenticationError);
             OnLoaded?.Invoke();
         }
 
@@ -91,6 +93,7 @@ public class SaveManager: Singleton<SaveManager>
             else
             {
                 SavedValues = LoadLocal();
+                callback?.Invoke(status);
                 OnLoaded?.Invoke();
             }
         }
@@ -106,6 +109,7 @@ public class SaveManager: Singleton<SaveManager>
                 SavedValues = LoadLocal();
                 OnLoaded?.Invoke();
             }
+            callback?.Invoke(status);
         }
     }
 
@@ -113,13 +117,13 @@ public class SaveManager: Singleton<SaveManager>
     {
         SaveSystemBinary.Save(SavedValues, SaveKey);
     }
-    public bool SaveExist()
+    public bool LocalSaveExist()
     {
         return SaveSystemBinary.SaveExists(SaveKey);
     }
     SavedValues LoadLocal()
     {
-        if (SaveExist())
+        if (LocalSaveExist())
         {
             return SaveSystemBinary.Load<SavedValues>(SaveKey);
         }
@@ -129,7 +133,15 @@ public class SaveManager: Singleton<SaveManager>
     public void DeleteLocalSave()
     {
         SaveSystemBinary.DeleteSave(SaveKey);
-        SavedValues = null;
+        SavedValues = LoadLocal();
     }
-
+    private void OnApplicationPause(bool pause)
+    {
+        if(pause)
+        SaveLocal();
+    }
+    private void OnApplicationQuit()
+    {
+        SaveLocal();
+    }
 }

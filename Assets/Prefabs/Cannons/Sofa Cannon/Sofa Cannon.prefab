@@ -4989,7 +4989,7 @@ GameObject:
   - component: {fileID: 557644036697133075}
   m_Layer: 10
   m_Name: Sofa Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5041,6 +5041,8 @@ MonoBehaviour:
   chillProportionStart: 0
   chillProportion: 0.2
   centerOfMassYChange: 0
+  volume: 1
+  pitch: -0.5
 --- !u!50 &557644036697133076
 Rigidbody2D:
   serializedVersion: 4

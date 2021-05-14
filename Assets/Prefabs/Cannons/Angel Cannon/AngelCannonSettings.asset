@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannonName: Angel
   bulletsDamageMultiplyer: 2.2
-  cannonMoveForceMultiplyer: 1.15
-  bonusProbabilityMultiplyer: 1.05
+  cannonMoveForceMultiplyer: 1.1
+  bonusProbabilityMultiplyer: 1.2
   bulletsPerSecondMultiplyer: 0.6
-  healthMultiplyer: 1
-  armorMultiplyer: 0.5
+  healthMultiplyer: 1.1
+  armorMultiplyer: 0.4

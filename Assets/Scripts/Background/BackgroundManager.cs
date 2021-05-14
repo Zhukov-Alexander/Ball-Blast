@@ -13,6 +13,7 @@ public class BackgroundManager : MonoBehaviour
     {
         CannonMenuManager.OnExit += UpdateBackground;
         SceneMenuManager.OnExit += UpdateBackground;
+        OptionesMenuManager.OnExit += UpdateBackground;
         StartMenu.OnFirstEnter += UpdateBackground;
     }
     void UpdateBackground()

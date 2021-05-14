@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using DG.Tweening;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
@@ -10,6 +11,7 @@ using UnityEngine;
 
 public class SocialManager : Singleton<SocialManager>
 {
+    [SerializeField] GameObject startScreen;
     public bool isConnectedToGooglePlayServices;
     public Action OnAuthenticated;
 
@@ -23,7 +25,7 @@ public class SocialManager : Singleton<SocialManager>
     }
     private void Start()
     {
-        SignIn(SignInInteractivity.CanPromptOnce);
+        SignIn(SignInInteractivity.CanPromptOnce, (status) => SaveManager.Instance.Load((result) => UIAnimation.Close(startScreen).AppendCallback(() => Destroy(startScreen))));
     }
     public void SignIn(SignInInteractivity signInInteractivity, Action<SignInStatus> callback = null)
     {
@@ -46,7 +48,8 @@ public class SocialManager : Singleton<SocialManager>
     {
         if (Social.localUser.authenticated)
         {
-            PlayGamesPlatform.Instance.SignOut();
+            SaveManager.Instance.SaveCloud((savedGameRequestStatus) => PlayGamesPlatform.Instance.SignOut(),true);
+            isConnectedToGooglePlayServices = false;
         }
     }
     public void Leaderboard()

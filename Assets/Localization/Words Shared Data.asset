@@ -183,6 +183,26 @@ MonoBehaviour:
     m_Key: Title
     m_Metadata:
       m_Items: []
+  - m_Id: 16335972427223040
+    m_Key: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16340242140614656
+    m_Key: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16340614846468096
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16757784080404480
+    m_Key: Ready!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17014895624441856
+    m_Key: Skip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

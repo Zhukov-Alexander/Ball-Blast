@@ -6,23 +6,25 @@ public static class Progression
 {
     public static float GetBossfightProgression()
     {
-        return GetLevelProgression(SaveManager.Instance.SavedValues.BossfightLevel, 6);
+        return GetLevelProgression(SaveManager.Instance.SavedValues.BossfightLevel, 7, false);
     }
     public static float GetCampainProgression()
     {
-        return GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, 1);
+        return GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, 1, true);
     }
-    public static float GetLevelProgression(int level, float coef)
+    public static float GetLevelProgression(int level, float coef, bool useSin)
     {
-        return Mathf.Pow(1.2f, level * coef) * GetSin(0.5f * level, 0.6f, 1);
+        float a = Mathf.Pow(1.2f, level * coef);
+        if(useSin) a *= GetSin(0.5f * level, 0.6f, 1);
+        return a;
     }
     public static float GetStatUpgradeCostProgression(int statLevel)
     {
-        return Mathf.Pow(1.25f, statLevel + 7) / 6;
+        return Mathf.Pow(1.25f-0.048f*Mathf.Pow(statLevel,1.4f)/(400+ Mathf.Pow(statLevel, 1.4f)), statLevel + 10) / 6;
     }
     public static float GetStatAmountProgression(int statLevel)
     {
-        return GetLevelProgression(statLevel, 1);
+        return GetLevelProgression(statLevel, 1, false);
     }
     public static float GetSin(float x, float o, float i)
     {
@@ -30,11 +32,11 @@ public static class Progression
     }
     static float InverseFuncPoint(float level, float max, float min)
     {
-        return (level / (level + 1 / 0.01f)) * (max - min) + min;
+        return (level / (level + 1 / 0.02f)) * (max - min) + min;
     }
     public static float GetBonusProbabilityProgression()
     {
-        return InverseFuncPoint(SaveManager.Instance.SavedValues.BonusProbabilityUpgradeLevel, 5, 1);
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.BonusProbabilityUpgradeLevel, 4, 1);
     }
     public static float GetBulletsPerSecondProgression()
     {
@@ -47,5 +49,9 @@ public static class Progression
     public static float GetCannonMoveForceProgression()
     {
         return InverseFuncPoint(SaveManager.Instance.SavedValues.CannonMoveForceUpgradeLevel, 3, 1);
+    }
+    public static float GetCannonArmorProgression()
+    {
+        return InverseFuncPoint(SaveManager.Instance.SavedValues.CannonArmorUpgradeLevel, 4, 1);
     }
 }

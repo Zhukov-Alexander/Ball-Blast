@@ -27,10 +27,10 @@ public class Boss : MonoBehaviour
     [SerializeField] float moveDecreseMultiplier;
     Rigidbody2D bossRB2D;
     Cannon cannon;
-    float currentLives;
+    double currentLives;
     Vector2 previousPosition;
 
-    public float CurrentLives
+    public double CurrentLives
     {
         get => currentLives; set
         {
@@ -42,12 +42,12 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public float InitialLives { get; set; }
-    public float Damage { get; set; }
+    public double InitialLives { get; set; }
+    public double Damage { get; set; }
     public float Armor { get; set; }
 
-    public static Action<float> OnTakeDamage { get; set; }
-    public static Action<float, Vector2> OnDestroy { get; set; }
+    public static Action<double> OnTakeDamage { get; set; }
+    public static Action<double, Vector2> OnDestroy { get; set; }
     public BossSettings BossSettings { get => bossSettings; set => bossSettings = value; }
 
     private void OnDrawGizmos()
@@ -83,9 +83,9 @@ public class Boss : MonoBehaviour
             TakeDamage(cannon.Damage);
         }
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(double damage)
     {
-        damage -= Armor;
+        damage -= damage * (1 - Armor);
         if (damage < 0) damage = 0;
         if (damage > CurrentLives) damage = CurrentLives;
         CurrentLives -= damage;

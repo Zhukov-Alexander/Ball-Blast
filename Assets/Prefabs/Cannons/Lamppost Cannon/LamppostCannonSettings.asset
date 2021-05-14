@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannonName: Lamppost
   bulletsDamageMultiplyer: 0.4
-  cannonMoveForceMultiplyer: 1
-  bonusProbabilityMultiplyer: 0.9
-  bulletsPerSecondMultiplyer: 2.2
-  healthMultiplyer: 1.2
-  armorMultiplyer: 1.2
+  cannonMoveForceMultiplyer: 1.2
+  bonusProbabilityMultiplyer: 0.8
+  bulletsPerSecondMultiplyer: 2.1
+  healthMultiplyer: 0.7
+  armorMultiplyer: 1.6

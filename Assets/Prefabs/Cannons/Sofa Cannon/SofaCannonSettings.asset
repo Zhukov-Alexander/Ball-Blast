@@ -15,7 +15,7 @@ MonoBehaviour:
   cannonName: Sofa
   bulletsDamageMultiplyer: 1.1
   cannonMoveForceMultiplyer: 1.2
-  bonusProbabilityMultiplyer: 1
+  bonusProbabilityMultiplyer: 1.3
   bulletsPerSecondMultiplyer: 1.2
-  healthMultiplyer: 1
-  armorMultiplyer: 0.7
+  healthMultiplyer: 0.9
+  armorMultiplyer: 0.6

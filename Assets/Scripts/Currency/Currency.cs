@@ -7,7 +7,7 @@ public abstract class Currency : MonoBehaviour
 {
     [SerializeField] protected GameObject floatingText;
     [SerializeField] new Rigidbody2D rigidbody2D;
-    public float Weight { get; set; }
+    public double Weight { get; set; }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

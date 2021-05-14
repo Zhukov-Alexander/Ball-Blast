@@ -71,10 +71,6 @@ public class SoundManager : Singleton<SoundManager>
     {
         Play(coin, pitch, volume);
     }
-    public void Gun(float volume = 1, float pitch = 1)
-    {
-        Play(gun, this.pitch * pitch, volume);
-    }
     public void Heartbeat(float volume = 1, bool start = true)
     {
         if (start)

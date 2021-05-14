@@ -19,6 +19,6 @@ public class GameConfigContainer : MonoBehaviour
     public void GetMoney()
     {
         SaveManager.Instance.SavedValues.Coins += Mathf.Pow(10,14);
-        SaveManager.Instance.SavedValues.Diamonds += 1000;
+        SaveManager.Instance.SavedValues.Diamonds += 500;
     }
 }

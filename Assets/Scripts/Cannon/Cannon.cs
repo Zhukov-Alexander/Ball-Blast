@@ -24,21 +24,21 @@ public class Cannon : MonoBehaviour
     [SerializeField] float volume = 1;
     [SerializeField] float pitch = 1;
     protected List<Sequence> sequences;
-    private float health;
+    private double health;
     Sequence livesTweener;
     List<int> ballIDs;
     float speed;
     float gravityMin;
     float gravityMax;
 
-    public float Damage { get; set; }
+    public double Damage { get; set; }
     public float MoveForce { get; set; }
-    public float Piercing { get; set; }
-    public float CurrentHealth
+    public float BonusProb { get; set; }
+    public double CurrentHealth
     {
         get => health; set
         {
-            livesTweener.Append(livesSlider.TweenSlider(MaximumHealth, health, value, Mathf.Abs(health - value) / MaximumHealth * gameConfig.cannonSliderDurationCoef)).SetEase(Ease.OutQuad);
+            livesTweener.Append(livesSlider.TweenSlider(MaximumHealth, health, value, (float)((health - value) / MaximumHealth * gameConfig.cannonSliderDurationCoef))).SetEase(Ease.OutQuad);
             health = value;
             if (health <= 0)
             {
@@ -53,7 +53,7 @@ public class Cannon : MonoBehaviour
     public static Action OnLostAllLives { get; set; }
     public bool CanMove { get; set; }
     internal int PrefabNumber { get; set; }
-    public float MaximumHealth { get; set; }
+    public double MaximumHealth { get; set; }
     public float BulletsPerSecond { get; set; }
     public Boss Boss
     {
@@ -65,14 +65,21 @@ public class Cannon : MonoBehaviour
         }
     }
 
+    public bool HasShield { get; set; } = false;
+
     ContactFilter2D contactFilter2DLeftWall;
     ContactFilter2D contactFilter2DRightWall;
     Boss boss;
     private bool canCollideWithBall = true;
     new Camera camera;
+    List<Vector2> particleSystemsParentsPos = new List<Vector2>();
+    Vector2 cannonBodyPos;
+    Coroutine shooting = null;
 
     private void Awake()
     {
+        particleSystemsParents.ForEach(a => particleSystemsParentsPos.Add(a.transform.localPosition));
+        cannonBodyPos = cannonBodyTransform.localPosition;
         camera = Camera.main;
         speed = particleSystems[0].main.startSpeed.constant;
         gravityMin = particleSystems[0].main.gravityModifier.constantMin;
@@ -149,12 +156,12 @@ public class Cannon : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball") && canCollideWithBall && !ballIDs.Contains(collision.GetInstanceID()))
+        if (collision.gameObject.CompareTag("Ball") && canCollideWithBall && !ballIDs.Contains(collision.GetInstanceID()) && !HasShield)
         {
             ballIDs.Add(collision.GetInstanceID());
             collision.enabled = false;
             Ball ball = collision.gameObject.GetComponentInParent<Ball>();
-            float damage = ball.CurrentLives;
+            double damage = ball.CurrentLives;
             ball.TakeDamage(damage);
             if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
             {
@@ -168,14 +175,14 @@ public class Cannon : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        if(other.layer == 18)
+        if(other.layer == 18 && !HasShield)
         {
             TakeDamage(Boss.Damage);
         }
     }
-    void TakeDamage(float damage)
+    void TakeDamage(double damage)
     {
-        damage -= Armor;
+        damage -= damage * (1 - Armor);
         if (damage <= 0) damage = 0;
         if (damage > CurrentHealth) damage = CurrentHealth;
         CurrentHealth -= damage;
@@ -220,7 +227,7 @@ public class Cannon : MonoBehaviour
     void SetBonusProbability()
     {
         float multiplyer = CannonSettings.bonusProbabilityMultiplyer * BackgroundManager.Background.backgroundSettings.bonusProbabilityMultiplyer;
-        Piercing = gameConfig.bonusProbability * multiplyer * Progression.GetBonusProbabilityProgression();
+        BonusProb = gameConfig.bonusProbability * multiplyer * Progression.GetBonusProbabilityProgression();
     }
     void SetHealth()
     {
@@ -231,7 +238,7 @@ public class Cannon : MonoBehaviour
     void SetArmor()
     {
         float multiplyer = CannonSettings.armorMultiplyer * BackgroundManager.Background.backgroundSettings.armorMultiplyer;
-        Armor = gameConfig.armor * multiplyer * Progression.GetStatAmountProgression(SaveManager.Instance.SavedValues.CannonArmorUpgradeLevel);
+        Armor = gameConfig.armor * multiplyer * Progression.GetCannonArmorProgression();
     }
 
     void Move(Vector2 direction)
@@ -240,11 +247,33 @@ public class Cannon : MonoBehaviour
     }
     public void StartShooting()
     {
-        StartCoroutine(Shooting());
+        if (shooting != null)
+        {
+            StopCoroutine(shooting);
+            shooting = null;
+            sequences.ForEach(a => a.Kill(true));
+            sequences.Clear();
+
+            cannonBodyTransform.localPosition = cannonBodyPos;
+            for (int i = 0; i < particleSystemsParents.Count; i++)
+            {
+                particleSystemsParents[i].transform.localPosition = particleSystemsParentsPos[i];
+            }
+        }
+        shooting = StartCoroutine(Shooting());
     }
     public virtual void StopShooting()
     {
+        StopCoroutine(shooting);
+        shooting = null;
         sequences.ForEach(a => a.onStepComplete += () => a.Kill());
+        sequences.Clear();
+
+        cannonBodyTransform.localPosition = cannonBodyPos;
+        for (int i = 0; i < particleSystemsParents.Count; i++)
+        {
+            particleSystemsParents[i].transform.localPosition = particleSystemsParentsPos[i];
+        }
     }
     protected virtual IEnumerator Shooting()
     {
@@ -276,7 +305,6 @@ public class Cannon : MonoBehaviour
 
         particleSystem1Sequence.AppendInterval(chillTimeStart);
         particleSystem1Sequence.AppendCallback(() => particleSystem.Emit(amountOfBallsSpawnedAtATime));
-        particleSystem1Sequence.AppendCallback(() => SoundManager.Instance.Gun(volume, pitch));
         particleSystem1Sequence.Append(particleSystem1TweenDown);
         particleSystem1Sequence.Join(bodySequence);
         particleSystem1Sequence.AppendInterval(chillTimeEnd);
