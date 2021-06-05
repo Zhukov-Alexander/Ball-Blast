@@ -98,12 +98,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  bulletDamage: 80
+  bulletDamage: 70
   cannonMoveForce: 200
   bonusProbability: 0.05
   bulletsPerSecond: 2
   bulletsSpeed: 3
-  health: 800
+  health: 600
   armor: 0.1
   cannonInstantiatePosition: {x: 0, y: -2, z: 0}
   cannonPrefabs:
@@ -131,7 +131,7 @@ MonoBehaviour:
   waitingMixCycles: 1
   maxBallPositionY: 2.5
   minBallPositionY: -0.4
-  ballChangePosForceY: 1.8
+  ballChangePosForceY: 2
   maxBallAngularVelocity: 200
   baseBallAngularDrag: 1
   ballAngularDragCoef: 0.2
@@ -200,3 +200,7 @@ MonoBehaviour:
   bonusShieldTime: 5
   bonusSpeedCoef: 2
   bonusSpeedTime: 5
+  taskTargetMultiplier: {x: 10, y: 15}
+  taskReward: {x: 1, y: 3}
+  allTasksCompletedReward: 10
+  greenColor: {r: 0.03529412, g: 0.5176471, b: 0.25490198, a: 1}

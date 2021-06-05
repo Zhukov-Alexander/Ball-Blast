@@ -21,6 +21,7 @@ public abstract class UpgradeManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI upgradeCostTMP;
     private double upgradeCost;
     private static List<UpgradeManager> UpgradeManagers;
+    protected static UpgradeManager currentUpgradeManager;
     public static Action OnUpgrade;
 
     private void Awake()
@@ -28,16 +29,21 @@ public abstract class UpgradeManager : MonoBehaviour
         if (UpgradeManagers == null) 
             UpgradeManagers = new List<UpgradeManager>();
         UpgradeManagers.Add(this);
-        headerButton.onClick.AddListener(SetThisUpgrade);
+        headerButton.onClick.AddListener(() => SetThisUpgrade());
         if (this is BulletsPerSecondUM)
         {
-            StartMenu.OnEnter += SetThisUpgrade;
+            MainMenu.OnEnter += () => SetThisUpgrade();
+            Chest.OnRewardTaken += () => currentUpgradeManager.SetThisUpgrade(false);
         }
     }
-    unsafe protected virtual void SetThisUpgrade()
+    unsafe protected virtual void SetThisUpgrade(bool withEffects = true)
     {
-        SoundManager.Instance.Button();
-        Vibration.Vibrate(gameObject);
+        currentUpgradeManager = this;
+        if (withEffects)
+        {
+            SoundManager.Instance.Button();
+            Vibration.Vibrate(gameObject);
+        }
     }
 
     unsafe protected void SetThisUpgrade(int* statLevel, float baseAmount, float multiplyer, float statProgression, float costProgression)
@@ -79,7 +85,6 @@ public abstract class UpgradeManager : MonoBehaviour
         void SetUpgradeButton()
         {
             upgradeButton.onClick.RemoveAllListeners();
-            upgradeButton.onClick.AddListener(() => SoundManager.Instance.Bonus());
             upgradeButton.onClick.AddListener(Upgrade);
 
             if (SaveManager.Instance.SavedValues.Coins >= upgradeCost)
@@ -95,12 +100,26 @@ public abstract class UpgradeManager : MonoBehaviour
             {
                 if (SaveManager.Instance.SavedValues.Coins >= upgradeCost)
                 {
+                    SoundManager.Instance.Bonus();
                     SaveManager.Instance.SavedValues.Coins -= upgradeCost;
                     *statLevel += 1;
                     SaveManager.Instance.SaveLocal();
                     OnUpgrade();
-                    SetThisUpgrade();
-                    Vibration.Vibrate(gameObject);
+                    TaskActiones.Instance.UpgradeStats(1);
+                    if (this.GetType() == typeof(BonusDropUM))
+                        TaskActiones.Instance.UpgradeBonusDrop(1);
+                    else if (this.GetType() == typeof(BulletDamageUM))
+                        TaskActiones.Instance.UpgradeBulletDamage(1);
+                    else if (this.GetType() == typeof(BulletsPerSecondUM))
+                        TaskActiones.Instance.UpgradeBulletsPerSecond(1);
+                    else if (this.GetType() == typeof(CannonArmorUM))
+                        TaskActiones.Instance.UpgradeCannonArmor(1);
+                    else if (this.GetType() == typeof(CannonHealthUM))
+                        TaskActiones.Instance.UpgradeCannonHealth(1);
+                    else if (this.GetType() == typeof(CannonMoveForceUM))
+                        TaskActiones.Instance.UpgradeCannonMoveForce(1);
+
+                    SetThisUpgrade(false);
                     Vibration.Vibrate(upgradeButton.gameObject);
                 }
             }

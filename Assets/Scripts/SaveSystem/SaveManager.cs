@@ -23,7 +23,7 @@ public class SaveManager: Singleton<SaveManager>
         platform.SavedGame.OpenWithAutomaticConflictResolution(cloudSaveName, dataSource, conflictResolutionStrategy, callback);
 
     }
-    public void SaveCloud(Action<SavedGameRequestStatus> callback = null, bool deleteLocalSave = false)
+    public void SaveCloud(Action<SavedGameRequestStatus> callback = null)
     {
         if (SocialManager.Instance.isConnectedToGooglePlayServices)
         {
@@ -56,18 +56,9 @@ public class SaveManager: Singleton<SaveManager>
         }
         void SaveCallback(SavedGameRequestStatus status, ISavedGameMetadata metadata)
         {
-            if (status == SavedGameRequestStatus.Success)
-            {
-                OnSaved?.Invoke();
-                callback?.Invoke(status);
-                if (deleteLocalSave) DeleteLocalSave();
-            }
-            else
-            {
-                SaveLocal();
-                OnSaved?.Invoke();
-                callback?.Invoke(status);
-            }
+            OnSaved?.Invoke();
+            callback?.Invoke(status);
+            DeleteLocalSave();
         }
     }
     public void Load(Action<SavedGameRequestStatus> callback = null)

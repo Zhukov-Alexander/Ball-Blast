@@ -8,9 +8,14 @@ public static class Progression
     {
         return GetLevelProgression(SaveManager.Instance.SavedValues.BossfightLevel, 7, false);
     }
-    public static float GetCampainProgression()
+    public static float GetCampainProgression(int levelsToCalculate = 1)
     {
-        return GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, 1, true);
+        float value = new float();
+        for (int i = 0; i < levelsToCalculate; i++)
+        {
+            value += GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel + i, 1, true);
+        }
+        return value;
     }
     public static float GetLevelProgression(int level, float coef, bool useSin)
     {

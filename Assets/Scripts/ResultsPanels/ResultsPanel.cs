@@ -123,6 +123,7 @@ public class ResultsPanel : MonoBehaviour
             if (result == ShowResult.Finished)
             {
                 SaveManager.Instance.SavedValues.Coins += money;
+                TaskActiones.Instance.TakeBonusCoins(1);
             }
             addButtonGO.SetActive(false);
             Hide();

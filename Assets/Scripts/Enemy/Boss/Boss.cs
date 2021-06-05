@@ -37,6 +37,7 @@ public class Boss : MonoBehaviour
             currentLives = value;
             if (currentLives <= 0)
             {
+                TaskActiones.Instance.DefeatBosses(1);
                 Destruction();
             }
         }
@@ -85,9 +86,10 @@ public class Boss : MonoBehaviour
     }
     public void TakeDamage(double damage)
     {
-        damage -= damage * (1 - Armor);
+        damage *= (1 - Armor);
         if (damage < 0) damage = 0;
         if (damage > CurrentLives) damage = CurrentLives;
+        TaskActiones.Instance.DealDamage(damage);
         CurrentLives -= damage;
         OnTakeDamage.Invoke(damage);
     }

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using static GameConfigContainer;
 
-public class PlaytimeReward : MonoBehaviour
+public class Chest : MonoBehaviour
 {
     [SerializeField] int time;
     [SerializeField] float coinProbability;
@@ -22,34 +22,36 @@ public class PlaytimeReward : MonoBehaviour
     [SerializeField] Sprite openedChest;
     [SerializeField] LocalizedString readyLS;
     [SerializeField] GameObject floatingText;
+    public static Action OnRewardTaken;
     bool canGetReward = false;
     private void Awake()
     {
         SaveManager.Instance.OnLoaded += () => {
-            StartCoroutine(CalculateRemainingTime());
+            StartCoroutine(UpdateRemainingTime());
         };
+        OnRewardTaken += () => TaskActiones.Instance.OpenChest(1);
     }
     void ResetTimer()
     {
-        SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan = TimeSpan.FromMinutes(time);
+        SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan = DateTime.Now + TimeSpan.FromMinutes(time);
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 160);
         image.sprite = closedChest;
         canGetReward = false;
-        StartCoroutine(CalculateRemainingTime());
+        StartCoroutine(UpdateRemainingTime());
     }
-    IEnumerator CalculateRemainingTime()
+    IEnumerator UpdateRemainingTime()
     {
         while (true)
         {
-            SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan -= new TimeSpan(0, 0, 1);
-            if (SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan.TotalSeconds <= 0)
+            TimeSpan remainingTime = SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan - DateTime.Now;
+            if (remainingTime.TotalSeconds <= 0)
             {
                 SetReady();
                 yield break;
             }
             else
             {
-                textMesh.text = SaveManager.Instance.SavedValues.PlaytimeRewardTimeSpan.ToString(@"mm\:ss");
+                textMesh.text = remainingTime.ToString(@"mm\:ss");
             }
             yield return new WaitForSecondsRealtime(1f);
         }
@@ -72,19 +74,12 @@ public class PlaytimeReward : MonoBehaviour
     {
         if(canGetReward)
         {
-            if (Random.value < coinProbability)
-            {
-                double rewardAmount = gameConfig.levelLifePerSec * gameConfig.levelDuration * Progression.GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, levelCoinsToAdd, false);
-                SaveManager.Instance.SavedValues.Coins += rewardAmount;
-                Instantiate(floatingText, transform.position, Quaternion.identity).GetComponent<FloatingText>().SetText(rewardAmount.NumberToTextInOneLine(), gameConfig.coinColor);
-            }
-            else
-            {
-                SaveManager.Instance.SavedValues.Diamonds += diamondsToAdd;
-                Instantiate(floatingText, transform.position, Quaternion.identity).GetComponent<FloatingText>().SetText(diamondsToAdd.NumberToTextInOneLine(), gameConfig.diamondColor);
-            }
+            double rewardAmount = gameConfig.levelLifePerSec * gameConfig.levelDuration * Progression.GetLevelProgression(SaveManager.Instance.SavedValues.CampainLevel, 1, false) * levelCoinsToAdd;
+            SaveManager.Instance.SavedValues.Coins += rewardAmount;
+            Instantiate(floatingText, transform.position, Quaternion.identity).GetComponent<FloatingText>().SetText(rewardAmount.NumberToTextInOneLine(), gameConfig.coinColor);
             Vibration.Vibrate(gameObject);
             ResetTimer();
+            OnRewardTaken?.Invoke();
         }
     }
 }

@@ -16,8 +16,8 @@ public class CurrencyManager : MonoBehaviour
     private void Awake()
     {
         LevelMenu.AddToEnd(CollectCurrency);
-        StartMenu.OnEnter += SetCoins;
-        StartMenu.OnEnter+=SetDiamonds;
+        MainMenu.OnEnter += SetCoins;
+        MainMenu.OnEnter+=SetDiamonds;
         Ball.OnDestroy += SpawnCoinsCampain;
         Boss.OnDestroy += SpawnCoinsBossfight;
         Boss.OnDestroy += (a,b) => SpawnDiamonds(b);

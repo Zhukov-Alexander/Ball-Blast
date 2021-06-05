@@ -42,6 +42,12 @@ public static class HelperClass
         }
         return false;
     }
+
+    public static float CustomNormalization(float value, float rangeStart, float rangeEnd, float currentRangeStart = 0, float currentRangeEnd = 1)
+    {
+        float a = (value - currentRangeStart) / (currentRangeEnd - currentRangeStart);
+        return rangeStart + (a * (rangeEnd - rangeStart));
+    }
     public static float RandomFloat(float min, float max)
     {
         double range = max - min;
@@ -496,3 +502,21 @@ public static class HelperClass
     }
 
 }
+public class EventList<T> : List<T>
+{
+
+    public Action<T> OnAdd;
+    public Action<T> OnRemove;
+
+    public new void Add(T item)
+    {
+        base.Add(item);
+        OnAdd?.Invoke(item);
+    }
+    public new void Remove(T item)
+    {
+        base.Remove(item);
+        OnRemove?.Invoke(item);
+    }
+}
+

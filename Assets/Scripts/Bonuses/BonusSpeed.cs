@@ -9,6 +9,7 @@ public class BonusSpeed : Bonus
 {
     protected override void SetBonus(Cannon cannon)
     {
+        TaskActiones.Instance.UseSpeedBonus(1);
         float bulletRate = cannon.BulletsPerSecond;
         cannon.BulletsPerSecond *= gameConfig.bonusSpeedCoef;
         cannon.StartShooting();

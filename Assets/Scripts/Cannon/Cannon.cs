@@ -38,7 +38,7 @@ public class Cannon : MonoBehaviour
     {
         get => health; set
         {
-            livesTweener.Append(livesSlider.TweenSlider(MaximumHealth, health, value, (float)((health - value) / MaximumHealth * gameConfig.cannonSliderDurationCoef))).SetEase(Ease.OutQuad);
+            livesTweener.Append(livesSlider.TweenSlider(MaximumHealth, health, value, (float)(Math.Abs(health - value) / MaximumHealth * gameConfig.cannonSliderDurationCoef))).SetEase(Ease.OutQuad);
             health = value;
             if (health <= 0)
             {
@@ -98,7 +98,7 @@ public class Cannon : MonoBehaviour
         LevelMenu.AddToEnd(StopShooting);
         LevelMenu.AddToStart(CanMoveTrue);
         LevelMenu.AddToEnd(CanMoveFalse);
-        LastChanceMenu.OnLastChanceTaken += UpdateProperties;
+        SecondChanceMenu.OnLastChanceTaken += UpdateProperties;
         ResultsPanel.OnHide += UpdateProperties;
     }
     private void OnDestroy()
@@ -108,7 +108,7 @@ public class Cannon : MonoBehaviour
         LevelMenu.RemoveFromEnd(StopShooting);
         LevelMenu.RemoveFromStart(CanMoveTrue);
         LevelMenu.RemoveFromEnd(CanMoveFalse);
-        LastChanceMenu.OnLastChanceTaken -= UpdateProperties;
+        SecondChanceMenu.OnLastChanceTaken -= UpdateProperties;
         ResultsPanel.OnHide -= UpdateProperties;
     }
     void CanMoveTrue()
@@ -162,7 +162,7 @@ public class Cannon : MonoBehaviour
             collision.enabled = false;
             Ball ball = collision.gameObject.GetComponentInParent<Ball>();
             double damage = ball.CurrentLives;
-            ball.TakeDamage(damage);
+            ball.TakeDamage(damage, DamageSource.body);
             if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
             {
                 if ((LevelProgression.currentPoints > LevelProgression.maxPoints) || HelperClass.NearlyEqual(LevelProgression.currentPoints, LevelProgression.maxPoints, LevelProgression.maxPoints * gameConfig.epsilon))
@@ -182,9 +182,12 @@ public class Cannon : MonoBehaviour
     }
     void TakeDamage(double damage)
     {
-        damage -= damage * (1 - Armor);
+        double reflectedDamage = damage * Armor;
+        TaskActiones.Instance.ReflectDamage(reflectedDamage);
+        damage -= reflectedDamage;
         if (damage <= 0) damage = 0;
         if (damage > CurrentHealth) damage = CurrentHealth;
+        TaskActiones.Instance.TakeDamage(damage);
         CurrentHealth -= damage;
     }
     public void UpdateProperties()
@@ -243,6 +246,7 @@ public class Cannon : MonoBehaviour
 
     void Move(Vector2 direction)
     {
+        TaskActiones.Instance.standStill = false;
         cannonRigidbody2D.AddForce(direction * MoveForce, ForceMode2D.Force);
     }
     public void StartShooting()
@@ -304,7 +308,7 @@ public class Cannon : MonoBehaviour
         ParticleSystem.MainModule mainModule = particleSystem.main;
 
         particleSystem1Sequence.AppendInterval(chillTimeStart);
-        particleSystem1Sequence.AppendCallback(() => particleSystem.Emit(amountOfBallsSpawnedAtATime));
+        particleSystem1Sequence.AppendCallback(() => { particleSystem.Emit(amountOfBallsSpawnedAtATime); TaskActiones.Instance.ShootBullets(amountOfBallsSpawnedAtATime); });
         particleSystem1Sequence.Append(particleSystem1TweenDown);
         particleSystem1Sequence.Join(bodySequence);
         particleSystem1Sequence.AppendInterval(chillTimeEnd);

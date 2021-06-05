@@ -10,6 +10,7 @@ public class BonusShield : Bonus
 {
     protected override void SetBonus(Cannon cannon)
     {
+        TaskActiones.Instance.UseShieldBonus(1);
         cannon.HasShield = true;
         GameObject gameObject = Instantiate(animationGO, cannon.gameObject.transform.position, Quaternion.identity, cannon.gameObject.transform);
         Sequence sequence = DOTween.Sequence().AppendInterval(gameConfig.bonusShieldTime);

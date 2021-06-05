@@ -48,7 +48,7 @@ public class CannonMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        OnEnter();
+        OnEnter?.Invoke();
         scroll.OnActiveRectTransformChanged += (a) => SetActiveScrollView(a.GetComponent<CannonScrollViewItem>());
         SetUnlockedCannonsText();
         AddCannonScrollViews();

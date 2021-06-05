@@ -7,7 +7,7 @@ using static GameConfigContainer;
 
 public class BonusManager : Singleton<BonusManager>
 {
-    [SerializeField] List<GameObject> bonusPrefabs;
+    [SerializeField] public List<GameObject> bonusPrefabs;
     public List<List<KeyValuePair<Sequence, GameObject>>> activeBonuses = new List<List<KeyValuePair<Sequence, GameObject>>>();
 
     private void Awake()

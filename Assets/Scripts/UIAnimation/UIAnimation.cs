@@ -6,6 +6,8 @@ using UnityEngine;
 
 public abstract class UIAnimation : MonoBehaviour
 {
+    [SerializeField] public bool followParent = true;
+
     public abstract Sequence Open();
     public abstract Sequence Close();
     public static Sequence Open(GameObject gameObject, bool enable = true)
@@ -13,7 +15,12 @@ public abstract class UIAnimation : MonoBehaviour
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
         if(enable) gameObject.SetActive(true);
         List< UIAnimation> animations = gameObject.GetComponentsInChildren<UIAnimation>().ToList();
-        animations.ForEach(a => sequence.Join(a.Open()));
+        animations.ForEach(a => {
+            if (a.followParent)
+            {
+                sequence.Join(a.Open());
+            }
+            });
         return sequence;
     }
 
@@ -21,7 +28,12 @@ public abstract class UIAnimation : MonoBehaviour
     {
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
         List<UIAnimation> animations = gameObject.GetComponentsInChildren<UIAnimation>().ToList();
-        animations.ForEach(a => sequence.Join(a.Close()));
+        animations.ForEach(a => {
+            if(a.followParent)
+            {
+                sequence.Join(a.Close());
+            }
+        });
         if (disable) sequence.AppendCallback(() => gameObject.SetActive(false));
         return sequence;
     }

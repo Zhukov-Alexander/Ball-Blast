@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+
 [CreateAssetMenu(fileName = "GameConfig", menuName = "ScriptableObjects/GameConfig")]
 public class GameConfiguration : ScriptableObject
 {
@@ -125,4 +127,11 @@ public class GameConfiguration : ScriptableObject
     public float bonusShieldTime;
     public float bonusSpeedCoef;
     public float bonusSpeedTime;
+
+    [Space]
+    [Header("Tasks")]
+    public Vector2 taskTargetMultiplier;
+    public Vector2Int taskReward;
+    public int allTasksCompletedReward;
+    public Color greenColor;
 }

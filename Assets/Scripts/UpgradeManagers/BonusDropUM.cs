@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class BonusDropUM : UpgradeManager
 {
-    unsafe protected override void SetThisUpgrade()
+    unsafe protected override void SetThisUpgrade(bool withEffects = true)
     {
-        base.SetThisUpgrade();
+        base.SetThisUpgrade(withEffects);
 
         fixed (int* i = &SaveManager.Instance.SavedValues.bonusDropProbabilityUpgradeLevel)
             SetThisUpgrade(i,

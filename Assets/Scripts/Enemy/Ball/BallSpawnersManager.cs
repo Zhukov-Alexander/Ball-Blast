@@ -22,7 +22,7 @@ public class BallSpawnersManager : MonoBehaviour
         LevelMenu.OnEndCampainLose += (EndShooting);
         LevelMenu.OnEndCampainWin += (EndShooting);
         LevelMenu.AddToEnd(DestroyBalls);
-        LastChanceMenu.OnLastChanceTaken += RestartShootingFromCurrentState;
+        SecondChanceMenu.OnLastChanceTaken += RestartShootingFromCurrentState;
     }
 
     private void CalculateLevel()
@@ -63,8 +63,8 @@ public class BallSpawnersManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             BallSpawnSettings move = ballSpawnSettings[0];
-            ballSpawnSettings.RemoveAt(0);
             ballSpawners[move.spawner].Shoot(move, i);
+            ballSpawnSettings.RemoveAt(0);
             yield return new WaitForSeconds(move.waiting);
         }
     }

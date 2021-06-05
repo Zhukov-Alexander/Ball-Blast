@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
-public class LastChanceMenu : MonoBehaviour
+public class SecondChanceMenu : MonoBehaviour
 {
     [SerializeField] int chanceCost;
     [SerializeField] GameObject container;
@@ -18,6 +18,7 @@ public class LastChanceMenu : MonoBehaviour
     private void Awake()
     {
         ShowLastChanceMenu();
+        OnLastChanceTaken += () => TaskActiones.Instance.UseSecondChance(1);
     }
     public void TakeChanceAd()
     {
@@ -55,13 +56,13 @@ public class LastChanceMenu : MonoBehaviour
     {
         if (isTaken || (SaveManager.Instance.SavedValues.Diamonds < chanceCost && !AdManager.Instance.IsAdReady(AdManager.Instance.RewardedVideoId)))
         {
-            isTaken = false;
             if (LevelModManager.CurrentLevelMod == LevelMod.Bossfight)
             {
                 LevelMenu.OnEndBossfightLose();
             }
             else
                 LevelMenu.OnEndCampainLose();
+            isTaken = false;
             Destroy(gameObject);
         }
         else

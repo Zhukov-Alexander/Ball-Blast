@@ -15,6 +15,7 @@ public abstract class Bonus : MonoBehaviour
         {
             SoundManager.Instance.Bonus();
             BonusManager.Instance.Complete(Type);
+            TaskActiones.Instance.UseBonuses(1);
             SetBonus(collision.gameObject.GetComponentInParent<Cannon>());
             Destroy(gameObject);
         }

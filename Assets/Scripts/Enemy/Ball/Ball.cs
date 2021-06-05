@@ -24,19 +24,7 @@ public class Ball : MonoBehaviour
     public double InitialLives { get; set; }
     public double CurrentLives
     {
-        get => currentLives; set
-        {
-            currentLives = value;
-            if (currentLives <= 0)
-            {
-                if (type > 0)
-                {
-                    Shoot(-1);
-                    Shoot(1);
-                }
-                Destruction();
-            }
-        }
+        get => currentLives; set => currentLives = value;
     }
 
     public int Number { get; set; }
@@ -118,7 +106,7 @@ public class Ball : MonoBehaviour
     {
         if (other.layer == 11)
         {
-            TakeDamage(CannonManager.Cannon.Damage);
+            TakeDamage(CannonManager.Cannon.Damage, DamageSource.bullet);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -131,14 +119,46 @@ public class Ball : MonoBehaviour
         }
 
     }
-    public void TakeDamage(double damage)
+    public void TakeDamage(double damage, DamageSource damageSource)
     {
-        if (damage > CurrentLives) damage = CurrentLives;
-        if (LevelModManager.CurrentLevelMod == LevelMod.Campain)
+        if (damage >= CurrentLives)
         {
-            OnTakeDamage(damage);
+            damage = CurrentLives;
         }
+        OnTakeDamage(damage);
+        TaskActiones.Instance.DealDamage(damage);
         CurrentLives -= damage;
+        if (currentLives <= 0)
+        {
+            if (type > 0)
+            {
+                Shoot(-1);
+                Shoot(1);
+            }
+            TaskActiones.Instance.DefeatEnemies(1);
+            if (damageSource == DamageSource.body)
+            {
+                TaskActiones.Instance.DefeatEnemiesByBody(1);
+            }
+            else if (damageSource == DamageSource.bullet)
+            {
+                TaskActiones.Instance.DefeatEnemiesByBullets(1);
+            }
+            if(type == 0)
+            {
+                TaskActiones.Instance.DefeatSmallEnemies(1);
+            }
+            else if(type == 1)
+            {
+                TaskActiones.Instance.DefeatMediumEnemies(1);
+            }
+            else if(type == 2)
+            {
+                TaskActiones.Instance.DefeatBigEnemies(1);
+            }
+            Destruction();
+        }
+
         UpdateLifeText();
         Vibrate();
         SetBallColour();
@@ -187,4 +207,9 @@ public class Ball : MonoBehaviour
         Instantiate(DeathAnimGO, transform.position, Quaternion.identity).transform.localScale = transform.localScale;
         Destroy(gameObject);
     }
+}
+public enum DamageSource
+{
+    bullet,
+    body
 }

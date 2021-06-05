@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class CannonArmorUM : UpgradeManager
 {
-    unsafe protected override void SetThisUpgrade()
+    unsafe protected override void SetThisUpgrade(bool withEffects = true)
     {
-        base.SetThisUpgrade();
+        base.SetThisUpgrade(withEffects);
 
         fixed (int* i = &SaveManager.Instance.SavedValues.cannonArmorUpgradeLevel)
             SetThisUpgrade(i,

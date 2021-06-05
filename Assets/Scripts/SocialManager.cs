@@ -12,20 +12,25 @@ using UnityEngine;
 public class SocialManager : Singleton<SocialManager>
 {
     [SerializeField] GameObject startScreen;
-    public bool isConnectedToGooglePlayServices;
-    public Action OnAuthenticated;
+    [SerializeField] RectTransform canvas;
+    [NonSerialized] public bool isConnectedToGooglePlayServices;
 
     private void Awake()
     {
         PlayGamesClientConfiguration.Builder builder = new PlayGamesClientConfiguration.Builder();
         builder.EnableSavedGames();
         PlayGamesPlatform.InitializeInstance(builder.Build());
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
     }
     private void Start()
     {
-        SignIn(SignInInteractivity.CanPromptOnce, (status) => SaveManager.Instance.Load((result) => UIAnimation.Close(startScreen).AppendCallback(() => Destroy(startScreen))));
+        GameObject startScreen = Instantiate(this.startScreen, canvas, false);
+        SignIn(SignInInteractivity.CanPromptOnce, (status) => SaveManager.Instance.Load((result) => 
+        {
+            OptionesMenuManager.UpdateState();
+            UIAnimation.Close(startScreen).OnComplete(() => Destroy(startScreen));
+        }));
     }
     public void SignIn(SignInInteractivity signInInteractivity, Action<SignInStatus> callback = null)
     {
@@ -41,14 +46,13 @@ public class SocialManager : Singleton<SocialManager>
                     break;
             }
             callback?.Invoke(result);
-            OnAuthenticated?.Invoke();
         });   
     }
     public void SignOut()
     {
         if (Social.localUser.authenticated)
         {
-            SaveManager.Instance.SaveCloud((savedGameRequestStatus) => PlayGamesPlatform.Instance.SignOut(),true);
+            SaveManager.Instance.SaveCloud((savedGameRequestStatus) => PlayGamesPlatform.Instance.SignOut());
             isConnectedToGooglePlayServices = false;
         }
     }
